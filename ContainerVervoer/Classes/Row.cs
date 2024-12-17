@@ -2,30 +2,45 @@
 {
     public class Row
     {
-        public List<Stack> Stacks { get; set; } =new List<Stack>();
-        public bool IsCoolingRow { get; set; }
+        private List<Stack> Stacks = new List<Stack>();
+        private bool IsCoolingRow;
+        private int width;
 
-        public Row(bool isCoolingRow) 
-        { 
-            this.IsCoolingRow = isCoolingRow; 
-        }
-
-        public bool CanAddContainerToCoolingRow(Container container)
+        public Row(bool isCoolingRow)
         {
-            if (!container.NeedsCooling) 
-            { 
-                return true;
+            this.IsCoolingRow = isCoolingRow;
+            for (int j = 0; j < width; j++)
+            {
+                Stacks.Add(new Stack());
             }
-            if (container.NeedsCooling && IsCoolingRow) 
-            { 
-                return true; 
-            }
-            return false;
         }
 
-        public bool AddContainerToStack(Stack stack, Container container) 
-        { 
-            return CanAddContainerToCoolingRow(container) && stack.canSupportWeight(container); 
+        //public bool CanAddContainerToCoolingRow(Container container)
+        //{
+        //    if (!container.NeedsCooling) 
+        //    { 
+        //        return true;
+        //    }
+        //    if (container.NeedsCooling && IsCoolingRow) 
+        //    { 
+        //        return true; 
+        //    }
+        //    return false;
+        //}
+
+        //public bool AddContainerToStack(Stack stack, Container container) 
+        //{ 
+        //    return CanAddContainerToCoolingRow(container) && stack.canSupportWeight(container); 
+        //}
+
+        public int CalculateTotalWeight()
+        {
+            int totalWeight = 0;
+            foreach (Stack stack in Stacks)
+            {
+                totalWeight += stack.CalculateTotalWeight();
+            }
+            return totalWeight;
         }
     }
 }

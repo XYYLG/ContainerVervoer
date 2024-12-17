@@ -2,20 +2,30 @@
 {
     public class Stack
     {
-        public List<Container> Containers { get; set; } = new List<Container>();
+        private List<Container> Containers = new List<Container>();
+
         public bool canSupportWeight (Container container)
         {
-            int totalWeight = container.Weight; 
-            foreach (Container containerAdded in Containers) 
-            { 
-                totalWeight += containerAdded.Weight; //voeg toe aan
+            if (Containers.Count < 0)
+            {
+                 if(CalculateTotalWeight() - Containers[0].Weight  >120)
+                    return false;
+                
             }
-            if (totalWeight <= 120000) 
-            { 
-                Containers.Add(container); 
-                return true;
-            } 
-            return false;
+            return true;
+               
         }
+
+        public int CalculateTotalWeight()
+        { 
+            int totalWeight = 0;
+            foreach (Container container in Containers)
+            {
+                totalWeight += container.Weight;
+            }
+            return totalWeight;
+        }
+
+        //trytoadd anmaken
     }
 }
