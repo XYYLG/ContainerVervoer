@@ -1,37 +1,20 @@
-﻿namespace ContainerVervoer.Classes
+﻿using System.ComponentModel;
+
+namespace ContainerVervoer.Classes
 {
     public class Row
     {
-        private List<Stack> Stacks = new List<Stack>();
-        private bool IsCoolingRow;
+        public List<Stack> Stacks = new List<Stack>();
         private int width;
 
-        public Row(bool isCoolingRow)
+        public Row(int length)
         {
-            this.IsCoolingRow = isCoolingRow;
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < length; j++)
             {
-                Stacks.Add(new Stack());
+                bool isCooled = j == 0; //kijkt of hij op de eerste plek in de rij is
+                Stacks.Add(new Stack(isCooled));
             }
         }
-
-        //public bool CanAddContainerToCoolingRow(Container container)
-        //{
-        //    if (!container.NeedsCooling) 
-        //    { 
-        //        return true;
-        //    }
-        //    if (container.NeedsCooling && IsCoolingRow) 
-        //    { 
-        //        return true; 
-        //    }
-        //    return false;
-        //}
-
-        //public bool AddContainerToStack(Stack stack, Container container) 
-        //{ 
-        //    return CanAddContainerToCoolingRow(container) && stack.canSupportWeight(container); 
-        //}
 
         public int CalculateTotalWeight()
         {
@@ -41,6 +24,19 @@
                 totalWeight += stack.CalculateTotalWeight();
             }
             return totalWeight;
+        }
+
+        public bool TryToAddContainer(Container container)
+        {
+            foreach (Stack stack in Stacks)
+            {
+                if (stack.TryToAddContainer(container))
+                {
+                    return true;
+
+                }
+            }
+            return false;
         }
     }
 }

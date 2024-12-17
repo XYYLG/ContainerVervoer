@@ -2,14 +2,20 @@
 {
     public class Stack
     {
-        private List<Container> Containers = new List<Container>();
+        public List<Container> Containers = new List<Container>();
+        public bool IsCooled { get; set; }
+
+        public Stack(bool isCooled)
+        {
+            IsCooled = isCooled;
+        }
 
         public bool canSupportWeight (Container container)
         {
             if (Containers.Count < 0)
             {
-                 if(CalculateTotalWeight() - Containers[0].Weight  >120)
-                    return false;
+                 if(CalculateTotalWeight() - Containers[0].Weight >120)
+                 return false;
                 
             }
             return true;
@@ -26,6 +32,14 @@
             return totalWeight;
         }
 
-        //trytoadd anmaken
+        public bool TryToAddContainer(Container container)
+        {
+            if(canSupportWeight(container) == true)
+            { 
+                Containers.Add(container);
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -4,19 +4,16 @@
     {
         public int Length { get; set; }
         public int Width { get; set; }
-        private List<Row> Rows = new List<Row>();
-        private int MaximumWeight;
+        public List<Row> Rows = new List<Row>();
 
-        public Ship(int length, int width, int maximumWeight)
+        public Ship(int length, int width)
         {
             Length = length;
             Width = width;
-            MaximumWeight = maximumWeight;
 
-            Rows.Add(new Row(true));
-            for (int i = 1; i < length; i++)
+            for (int i = 0; i < width; i++)
             { 
-                Rows.Add(new Row(false));               
+                Rows.Add(new Row(length));               
             }
         }
 
@@ -32,17 +29,13 @@
             return totalWeight;
         }
 
-        public bool AddContainerToShip(Container container)
+        public bool TryToAddContainer(Container container)
         {
-            foreach (var row in Rows)
+            foreach (Row row in Rows)
             {
-                foreach (Stack stack in row.Stacks)
+                if (row.TryToAddContainer(container))
                 {
-                    if (row.CanAddContainerToCoolingRow(container) && stack.canSupportWeight(container))
-                    {
-                        stack.Containers.Add(container);
-                        return true;
-                    }
+                   return true;
                 }
             }
             return false;
