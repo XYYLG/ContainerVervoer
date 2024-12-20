@@ -34,6 +34,10 @@
 
         public bool TryToAddContainer(Container container)
         {
+            if (container.NeedsCooling && !this.IsCooled)
+            { 
+                return false; 
+            }
             if(canSupportWeight(container) == true)
             { 
                 Containers.Add(container);
