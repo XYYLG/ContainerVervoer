@@ -11,14 +11,20 @@ int containerID = 0;
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 500; i++)
+for (int i = 0; i < 500; i++) //normale containers
 {
     containers.Add(new Container(containerID, rand.Next(4000, 30000), false, false));
     containerID++;
 }
-for (int i = 0; i < 50; i++)
+for (int i = 0; i < 50; i++) //waardevolle containers
 {
     containers.Add(new Container(containerID, rand.Next(4000, 30000), true, false));
+    containerID++;
+}
+
+for (int i = 0; i < 100; i++) //koeling containers
+{
+    containers.Add(new Container(containerID, rand.Next(4000, 30000), false, true));
     containerID++;
 }
 
