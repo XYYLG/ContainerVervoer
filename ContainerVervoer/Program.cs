@@ -5,17 +5,30 @@ int length = 2;
 int width = 2;
 
 Ship shipOne = new Ship(length, width);
+Random rand = new Random();
+int containerID = 0;
 
 
-Container container1 = new Container(1, 2, false, true);
-Container container2 = new Container(2, 1, true, false); 
-Container container3 = new Container(3, 4, false, false);
+List<Container> containers = new List<Container>();
+
+for (int i = 0; i < 500; i++)
+{
+    containers.Add(new Container(containerID, rand.Next(4000, 30000), false, false));
+    containerID++;
+}
+for (int i = 0; i < 50; i++)
+{
+    containers.Add(new Container(containerID, rand.Next(4000, 30000), true, false));
+    containerID++;
+}
+
+
+foreach (Container container in containers)
+{
+    shipOne.TryToAddContainer(container);
+}
 
 int totalWeight = shipOne.CalculateTotalWeight();
-
-shipOne.TryToAddContainer(container1);
-shipOne.TryToAddContainer(container2);
-shipOne.TryToAddContainer(container3);
 
 UrlGenerator urlGen = new UrlGenerator();
 string url = urlGen.GetUrl(shipOne);
