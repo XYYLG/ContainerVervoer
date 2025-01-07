@@ -5,7 +5,6 @@ namespace ContainerVervoer.Classes
     public class Row
     {
         public List<Stack> Stacks = new List<Stack>();
-        //private int width;
 
         public Row(int length)
         {
@@ -33,10 +32,28 @@ namespace ContainerVervoer.Classes
                 if (stack.TryToAddContainer(container))
                 {
                     return true;
-
                 }
             }
             return false;
+        }
+
+        //checks whether the stack at this index is higher than the previous or the next stack
+        public bool IsStackReachable(int index)
+        {
+            bool result = true;
+
+            int currentHeight = Stacks[index].Containers.Count;
+            if (currentHeight == 0)
+            {
+                return result;
+            }
+
+            int NextHeight = Stacks[index + 1].Containers.Count;
+            int PreviousHeight = Stacks[index - 1].Containers.Count;
+
+            result =  currentHeight > NextHeight || currentHeight < PreviousHeight;
+
+            return result;
         }
     }
 }
