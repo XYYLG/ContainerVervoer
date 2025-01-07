@@ -5,7 +5,7 @@ namespace ContainerVervoer.Classes
     public class Row
     {
         public List<Stack> Stacks = new List<Stack>();
-        private int width;
+        //private int width;
 
         public Row(int length)
         {

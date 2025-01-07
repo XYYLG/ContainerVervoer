@@ -4,6 +4,8 @@
     {
         public List<Container> Containers = new List<Container>();
         public bool IsCooled { get; set; }
+        public bool HasValuable { get; private set; }
+        private const int StackCappacity = 120;
 
         public Stack(bool isCooled)
         {
@@ -12,9 +14,9 @@
 
         public bool canSupportWeight (Container container)
         {
-            if (Containers.Count < 0)
+            if (Containers.Count > 0)
             {
-                 if(CalculateTotalWeight() - Containers[0].Weight >120)
+                 if(CalculateTotalWeight() - Containers[0].Weight + container.Weight > StackCappacity)
                  return false;
                 
             }
@@ -34,13 +36,22 @@
 
         public bool TryToAddContainer(Container container)
         {
-            if (container.NeedsCooling && !this.IsCooled)
+            if (container.NeedsCooling && !IsCooled)
             { 
                 return false; 
             }
-            if(canSupportWeight(container) == true)
+            if (HasValuable)
+            {
+                return false;
+            }
+
+            if(canSupportWeight(container))
             { 
                 Containers.Add(container);
+                if (container.IsValuable)
+                {
+                    HasValuable = true;
+                }
                 return true;
             }
             return false;

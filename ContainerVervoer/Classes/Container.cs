@@ -2,8 +2,8 @@
 {
     public class Container
     {
-        private const int emptyw = 4;
-        private const int maxw = 30;
+        public const int Emptyw = 4;
+        public const int Maxw = 30;
         public int Id { get; private set; }
         public int Weight { get; private set; }
         public bool IsValuable { get; private set; }

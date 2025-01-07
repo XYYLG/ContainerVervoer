@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using ContainerVervoer.Classes;
 
-int length = 2;
-int width = 2;
+int length = 5;
+int width = 10;
 
 Ship shipOne = new Ship(length, width);
 Random rand = new Random();
@@ -11,22 +11,31 @@ int containerID = 0;
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 500; i++) //normale containers
+for (int i = 0; i < 10; i++) //koeling containers
 {
-    containers.Add(new Container(containerID, rand.Next(4000, 30000), false, false));
-    containerID++;
-}
-for (int i = 0; i < 50; i++) //waardevolle containers
-{
-    containers.Add(new Container(containerID, rand.Next(4000, 30000), true, false));
+    containers.Add(new Container(containerID, rand.Next(Container.Emptyw, Container.Maxw), false, true));
     containerID++;
 }
 
-for (int i = 0; i < 100; i++) //koeling containers
+for (int i = 0; i < 10; i++) //koeling & waardevolle containers
 {
-    containers.Add(new Container(containerID, rand.Next(4000, 30000), false, true));
+    containers.Add(new Container(containerID, rand.Next(Container.Emptyw, Container.Maxw), true, true));
     containerID++;
 }
+
+for (int i = 0; i < 100; i++) //normale containers
+{
+    containers.Add(new Container(containerID, rand.Next(Container.Emptyw, Container.Maxw), false, false));
+    containerID++;
+}
+
+for (int i = 0; i < 30; i++) //waardevolle containers
+{
+    containers.Add(new Container(containerID, rand.Next(Container.Emptyw, Container.Maxw), true, false));
+    containerID++;
+}
+
+
 
 
 foreach (Container container in containers)

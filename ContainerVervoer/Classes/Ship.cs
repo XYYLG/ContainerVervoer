@@ -11,13 +11,11 @@
             Length = length;
             Width = width;
 
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < width; i++) //rij aanmaken
             { 
                 Rows.Add(new Row(length));               
             }
         }
-
-
 
         public int CalculateTotalWeight()
         {
