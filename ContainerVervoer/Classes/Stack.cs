@@ -56,5 +56,10 @@
             }
             return false;
         }
+
+        public bool TryToRemoveContainer(Container container)
+        {
+            return Containers.Remove(container);
+        }
     }
 }

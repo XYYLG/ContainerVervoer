@@ -27,33 +27,73 @@ namespace ContainerVervoer.Classes
 
         public bool TryToAddContainer(Container container)
         {
-            foreach (Stack stack in Stacks)
+            for (int i = 0; i < Stacks.Count; i++)
             {
+                Stack stack = Stacks[i];
                 if (stack.TryToAddContainer(container))
                 {
-                    return true;
+                    if (!container.IsValuable)
+                    {
+                        if (IsPreviousAndNextReachable(i))
+                        {
+                            return true;
+                        }
+                        stack.TryToRemoveContainer(container);
+                    }
+                    else
+                    {
+                        if (IsStackReachable(i) && IsPreviousAndNextReachable(i))
+                        {
+                            return true;
+                        }
+                        stack.TryToRemoveContainer(container);
+                    }
                 }
             }
             return false;
         }
 
-        //checks whether the stack at this index is higher than the previous or the next stack
         public bool IsStackReachable(int index)
         {
-            bool result = true;
+            if (index == 0 || index == Stacks.Count - 1)
+            {
+                return true;
+            }
 
             int currentHeight = Stacks[index].Containers.Count;
+
             if (currentHeight == 0)
             {
-                return result;
+                return true;
+            }
+
+            if (!Stacks[index].HasValuable)
+            {
+                return true;
             }
 
             int NextHeight = Stacks[index + 1].Containers.Count;
             int PreviousHeight = Stacks[index - 1].Containers.Count;
 
-            result =  currentHeight > NextHeight || currentHeight < PreviousHeight;
+            return currentHeight > NextHeight || currentHeight < PreviousHeight;
+        }
 
-            return result;
+        public bool IsPreviousAndNextReachable(int index)
+        {
+            bool previousIsReachable = true;
+            bool nextIsReachable = true;
+
+            if (index - 1 > 0) //kijkt of groter is dan eerste stack
+            {
+                previousIsReachable = IsStackReachable(index - 1);
+            }
+
+            if (index + 1 < Stacks.Count - 1) //kijkt of kleiner is dan eerste stack
+            { 
+                nextIsReachable = IsStackReachable(index + 1);
+            }
+
+            return previousIsReachable && nextIsReachable;
         }
     }
 }
