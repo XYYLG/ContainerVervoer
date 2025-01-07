@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using ContainerVervoer.Classes;
 
-int length = 5;
-int width = 1;
+int length = 10;
+int width = 5;
 
 Ship shipOne = new Ship(length, width);
 Random rand = new Random();
@@ -11,24 +11,24 @@ int containerID = 0;
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 0; i++) //koeling containers
+for (int i = 0; i < 10; i++) //koeling containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, true));
     containerID++;
 }
-for (int i = 0; i < 0; i++) //koeling & waardevolle containers
+for (int i = 0; i < 5; i++) //koeling & waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, true));
     containerID++;
 }
 
-for (int i = 0; i < 0; i++) //normale containers
+for (int i = 0; i < 40; i++) //normale containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, false));
     containerID++;
 }
 
-for (int i = 0; i < 4; i++) //waardevolle containers
+for (int i = 0; i < 20; i++) //waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, false));
     containerID++;

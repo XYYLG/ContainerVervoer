@@ -75,7 +75,7 @@ namespace ContainerVervoer.Classes
             int NextHeight = Stacks[index + 1].Containers.Count;
             int PreviousHeight = Stacks[index - 1].Containers.Count;
 
-            return currentHeight > NextHeight || currentHeight < PreviousHeight;
+            return currentHeight > NextHeight || currentHeight > PreviousHeight;
         }
 
         public bool IsPreviousAndNextReachable(int index)
