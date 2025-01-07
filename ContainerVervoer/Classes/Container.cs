@@ -2,17 +2,27 @@
 {
     public class Container
     {
-        public const int Emptyw = 4;
-        public const int Maxw = 30;
-        public int Id { get; private set; }
+        public const int EmptyWeight = 4;
+        public const int MaxWeight = 30;
         public int Weight { get; private set; }
         public bool IsValuable { get; private set; }
         public bool NeedsCooling { get; private set; }
 
-        public Container(int id, int weight, bool isValuable, bool needsCooling)
+        public Container(int weight, bool isValuable, bool needsCooling)
         {
-            this.Id = id;
-            this.Weight = weight;
+            if (weight < EmptyWeight)
+            {
+                this.Weight = EmptyWeight;
+            }
+            else if (weight > MaxWeight)
+            {
+                this.Weight = MaxWeight;
+            }
+            else
+            {
+                this.Weight = weight;
+            }
+           
             this.IsValuable = isValuable;
             this.NeedsCooling = needsCooling;
         }

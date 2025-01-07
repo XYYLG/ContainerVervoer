@@ -2,3 +2,5 @@
 /.vs
 /ContainerVervoer/obj
 /ContainerVervoer/bin
+/ContainerVervoerTests/bin
+/ContainerVervoerTests/obj
