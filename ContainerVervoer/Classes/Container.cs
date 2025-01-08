@@ -16,7 +16,7 @@
             }
             else if (weight > MaxWeight)
             {
-                throw new Exception("Gewicht kan niet meer zijn dan 30 ton ");
+                throw new Exception("Gewicht kan niet meer zijn dan 30 ton");
             }
             else
             {

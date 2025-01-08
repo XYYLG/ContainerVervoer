@@ -22,7 +22,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void ContainerConstructorTest_WithWeightMorethenMaxWeight_ShouldSetWeightToMaxWeight() //aanpassen
+        public void ContainerConstructorTest_WithWeightMorethenMaxWeight_ShouldSetWeightToMaxWeight() 
         {
             // Arrange
             int weight = 40;

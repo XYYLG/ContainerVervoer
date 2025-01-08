@@ -4,15 +4,14 @@ namespace ContainerVervoer.Classes
 {
     public class Row
     {
-        private List<Stack> _stacks = new List<Stack>();
-        public ReadOnlyCollection<Stack> Stacks => _stacks.AsReadOnly();
+        public List<Stack> Stacks = new List<Stack>();
 
         public Row(int length)
         {
             for (int j = 0; j < length; j++)
             {
                 bool isCooled = j == 0; //kijkt of hij op de eerste plek in de rij is
-                _stacks.Add(new Stack(isCooled));
+                Stacks.Add(new Stack(isCooled));
             }
         }
 

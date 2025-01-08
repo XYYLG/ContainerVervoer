@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
+using System.Linq;
 
 namespace ContainerVervoer.Classes
 {
@@ -32,66 +36,70 @@ namespace ContainerVervoer.Classes
 
         public bool TryToAddContainer(Container container)
         {
-            int middleIndex = Width / 2;
+            List<Row> leftRows = new List<Row>();
+            Row? middleRow = null;
+            List<Row> rightRows = new List<Row>();
+
+            for (int i = 0; i < Width / 2; i++)
+            {
+                leftRows.Add(Rows[i]);
+            }
+
+            for (int i = Width / 2 + Width % 2; i < Width; i++)
+            {
+                rightRows.Add(Rows[i]);
+            }
 
             if (Width % 2 != 0)
             {
-                if (_rows[middleIndex].TryToAddContainer(container))
+                middleRow = Rows[Width / 2];
+
+                Row leftMiddleRow = new Row(Length/2);
+                Row rightMiddleRow = new Row(Length / 2 + Length % 2);
+                for (int i = 0; i < Length/2; i++)
                 {
-                    try
-                    {
-                        IsBalanced();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
-                    }
+                    leftMiddleRow.Stacks[i] = middleRow.Stacks[i];
                 }
+
+                leftRows.Add(leftMiddleRow);
+                
+
+                for (int i = 0; i < Length/2+Length%2; i++)
+                {
+                    rightMiddleRow.Stacks[i] = middleRow.Stacks[Length / 2 + i];
+                }
+
+                rightRows.Add(rightMiddleRow);
             }
 
-            int leftWeight = CalculateLeftWeight();
+
+            int leftWeight = CalculateLeftWeight(); 
             int rightWeight = CalculateRightWeight();
 
             if (leftWeight < rightWeight)
             {
-                foreach (Row row in _rows.Take(middleIndex))
+                foreach (Row left in leftRows)
                 {
-                    if (row.TryToAddContainer(container))
+                    if (left.TryToAddContainer(container))
                     {
-                        try
-                        {
-                            IsBalanced();
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
-                        }
+                        return true;
                     }
+                    
                 }
             }
             else
             {
-                foreach (Row row in _rows.Skip(middleIndex))
+                foreach (Row right in rightRows)
                 {
-                    if (row.TryToAddContainer(container))
+                    if (right.TryToAddContainer(container))
                     {
-                        try
-                        {
-                            IsBalanced();
-                            return true;
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
-                        }
+                        return true;
                     }
                 }
             }
-
             return false;
         }
+
 
         public void IsProperlyLoaded()
         {
@@ -128,7 +136,7 @@ namespace ContainerVervoer.Classes
         public int CalculateRightWeight()
         {
             int rightWeight = 0;
-            for (int i = Width / 2; i < Width; i++)
+            for (int i = Width / 2 + Width % 2; i < Width; i++)
             {
                 rightWeight += _rows[i].CalculateTotalWeight();
             }
