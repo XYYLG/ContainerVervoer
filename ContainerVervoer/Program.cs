@@ -1,24 +1,24 @@
 ﻿using System.Diagnostics;
 using ContainerVervoer.Classes;
 
-int length = 6;
-int width = 5;
+int length = 5;
+int width = 4;
 
 Ship shipOne = new Ship(length, width);
-Random rand = new Random();
+Random rand = new Random(1);
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 5; i++) //koeling containers
+for (int i = 0; i < 25; i++) //koeling containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, true));
 }
-for (int i = 0; i < 10; i++) //koeling & waardevolle containers
+for (int i = 0; i < 15; i++) //koeling & waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, true));
 }
 
-for (int i = 0; i < 15; i++) //normale containers
+for (int i = 0; i < 100; i++) //normale containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, false));
 }
@@ -34,7 +34,14 @@ for (int i = 0; i < 10; i++) //waardevolle containers
 foreach (Container container in containers)
 {
     shipOne.TryToAddContainer(container);
+}
+try
+{
     shipOne.IsProperlyLoaded();
+}
+catch (Exception ex)
+{
+    throw new Exception("Gewicht is te weinig.", ex);
 }
 
 UrlGenerator urlGen = new UrlGenerator();
