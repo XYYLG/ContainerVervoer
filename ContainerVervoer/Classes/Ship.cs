@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
 
 namespace ContainerVervoer.Classes
 {
@@ -6,7 +6,8 @@ namespace ContainerVervoer.Classes
     {
         public int Length { get; set; }
         public int Width { get; set; }
-        public List<Row> Rows = new List<Row>();
+        private List<Row> _rows = new List<Row>();
+        public ReadOnlyCollection<Row> Rows => _rows.AsReadOnly();
 
 
         public Ship(int length, int width)
@@ -16,7 +17,7 @@ namespace ContainerVervoer.Classes
 
             for (int i = 0; i < width; i++) //rij aanmaken
             {
-                Rows.Add(new Row(length));
+                _rows.Add(new Row(length));
             }
         }
 

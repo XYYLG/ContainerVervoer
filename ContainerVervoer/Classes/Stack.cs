@@ -1,10 +1,8 @@
-﻿using System.Collections.ObjectModel;
-
-namespace ContainerVervoer.Classes
+﻿namespace ContainerVervoer.Classes
 {
     public class Stack
     {
-        public List<Container> Containers = new List<Container>();
+        public List<Container> Containers = new List<Container>(); 
         public bool IsCooled { get; set; }
         public bool HasValuable { get; private set; }
         public static readonly int StackCapacity = 120;
