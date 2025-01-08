@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace ContainerVervoer.Classes
 {
@@ -94,6 +95,18 @@ namespace ContainerVervoer.Classes
             }
 
             return previousIsReachable && nextIsReachable;
+        }
+
+        public bool TryToRemoveContainer(Container container)
+        { 
+            foreach (Stack stack in Stacks) 
+            { 
+                if (stack.Containers.Remove(container)) 
+                { 
+                    return true; 
+                }
+            }
+            return false; 
         }
     }
 }

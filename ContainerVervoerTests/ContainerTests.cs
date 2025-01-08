@@ -1,4 +1,5 @@
 using ContainerVervoer.Classes;
+using System;
 namespace ContainerVervoerTests
 {
     [TestClass]
@@ -14,14 +15,14 @@ namespace ContainerVervoerTests
             int expectedWeight = Container.EmptyWeight;
 
             // Act
-            Container container = new Container(weight, isValuable, needsCooling);
+            Exception exception = Assert.ThrowsException<Exception>(() => new Container(weight, isValuable, needsCooling));
 
             //Assert
-            Assert.AreEqual(expectedWeight, container.Weight);
+            Assert.AreEqual("Gewicht kan niet minder zijn dan 4 ton", exception.Message);
         }
 
         [TestMethod]
-        public void ContainerConstructorTest_WithWeightMorethenMaxWeight_ShouldSetWeightToMaxWeight()
+        public void ContainerConstructorTest_WithWeightMorethenMaxWeight_ShouldSetWeightToMaxWeight() //aanpassen
         {
             // Arrange
             int weight = 40;
@@ -30,10 +31,10 @@ namespace ContainerVervoerTests
             int expectedWeight = Container.MaxWeight;
 
             //Act
-            Container container = new Container(weight, isValuable, needsCooling);
+            Exception exception = Assert.ThrowsException<Exception>(() => new Container(weight, isValuable, needsCooling));
 
             //Assert
-            Assert.AreEqual(expectedWeight, container.Weight);
+            Assert.AreEqual("Gewicht kan niet meer zijn dan 30 ton", exception.Message);
         }
 
         [TestMethod]

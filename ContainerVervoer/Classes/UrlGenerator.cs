@@ -6,7 +6,7 @@ namespace ContainerVervoer.Classes
     {
         public string GetUrl(Ship ship)
         {
-            string url = "https://i872272.luna.fhict.nl/ContainerVisualizer/index.html?";
+            string url = "https://app6i872272.luna.fhict.nl/?";
             url += "length=" + ship.Length + "&width=" + ship.Width;
 
             string stacks = string.Empty;

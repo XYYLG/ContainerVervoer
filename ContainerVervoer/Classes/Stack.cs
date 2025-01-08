@@ -1,18 +1,21 @@
-﻿namespace ContainerVervoer.Classes
+﻿using System.Collections.ObjectModel;
+
+namespace ContainerVervoer.Classes
 {
     public class Stack
     {
         public List<Container> Containers = new List<Container>();
         public bool IsCooled { get; set; }
         public bool HasValuable { get; private set; }
-        private const int StackCapacity = 120;
+        public static readonly int StackCapacity = 120;
 
         public Stack(bool isCooled)
         {
             IsCooled = isCooled;
+            HasValuable = false;
         }
 
-        public bool canSupportWeight (Container container)
+        public bool CanSupportWeight (Container container)
         {
             if (Containers.Count > 0)
             {
@@ -45,7 +48,7 @@
                 return false;
             }
 
-            if(canSupportWeight(container))
+            if(CanSupportWeight(container))
             { 
                 Containers.Add(container);
                 if (container.IsValuable)
