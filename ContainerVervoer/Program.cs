@@ -2,10 +2,10 @@
 using ContainerVervoer.Classes;
 
 int length = 5;
-int width = 4;
+int width = 3;
 
 Ship shipOne = new Ship(length, width);
-Random rand = new Random(1);
+Random rand = new Random();
 
 List<Container> containers = new List<Container>();
 
@@ -13,17 +13,17 @@ for (int i = 0; i < 25; i++) //koeling containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, true));
 }
-for (int i = 0; i < 15; i++) //koeling & waardevolle containers
+for (int i = 0; i < 25; i++) //koeling & waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, true));
 }
 
-for (int i = 0; i < 100; i++) //normale containers
+for (int i = 0; i < 90; i++) //normale containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, false));
 }
 
-for (int i = 0; i < 10; i++) //waardevolle containers
+for (int i = 0; i < 25; i++) //waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, false));
 }
@@ -41,7 +41,15 @@ try
 }
 catch (Exception ex)
 {
-    throw new Exception("Gewicht is te weinig.", ex);
+    throw new Exception("Gewicht is te laag.", ex);
+}
+try
+{
+    shipOne.IsBalanced();
+}
+catch (Exception ex)
+{
+    throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
 }
 
 UrlGenerator urlGen = new UrlGenerator();
