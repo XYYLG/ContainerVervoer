@@ -42,7 +42,7 @@ try
 }
 catch (Exception ex)
 {
-    //throw new Exception("Gewicht is te laag.", ex);
+    throw new Exception("Gewicht is te laag.", ex);
 }
 try
 {
@@ -50,7 +50,7 @@ try
 }
 catch (Exception ex)
 {
-    //throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
+    throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
 }
 
 UrlGenerator urlGen = new UrlGenerator();
