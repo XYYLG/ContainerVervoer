@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace ContainerVervoer.Classes
+﻿namespace ContainerVervoer.Classes
 {
     public class Row
     {
