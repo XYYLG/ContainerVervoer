@@ -36,22 +36,22 @@ foreach (Container container in containers)
     shipOne.TryToAddContainer(container);
 }
 
-//try
-//{
-//    shipOne.IsProperlyLoaded();
-//}
-//catch (Exception ex)
-//{
-//    throw new Exception("Gewicht is te laag.", ex);
-//}
-//try
-//{
-//    shipOne.IsBalanced();
-//}
-//catch (Exception ex)
-//{
-//    throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
-//}
+try
+{
+    shipOne.IsProperlyLoaded();
+}
+catch (Exception ex)
+{
+    //throw new Exception("Gewicht is te laag.", ex);
+}
+try
+{
+    shipOne.IsBalanced();
+}
+catch (Exception ex)
+{
+    //throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
+}
 
 UrlGenerator urlGen = new UrlGenerator();
 string url = urlGen.GetUrl(shipOne);

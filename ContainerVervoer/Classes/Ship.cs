@@ -39,43 +39,32 @@ namespace ContainerVervoer.Classes
             List<Row> leftRows = new List<Row>();
             Row? middleRow = null;
             List<Row> rightRows = new List<Row>();
-
             for (int i = 0; i < Width / 2; i++)
             {
                 leftRows.Add(Rows[i]);
             }
-
             for (int i = Width / 2 + Width % 2; i < Width; i++)
             {
                 rightRows.Add(Rows[i]);
             }
-
             if (Width % 2 != 0)
             {
                 middleRow = Rows[Width / 2];
-
-                Row leftMiddleRow = new Row(Length/2);
+                Row leftMiddleRow = new Row(Length / 2);
                 Row rightMiddleRow = new Row(Length / 2 + Length % 2);
-                for (int i = 0; i < Length/2; i++)
+                for (int i = 0; i < Length / 2; i++)
                 {
                     leftMiddleRow.Stacks[i] = middleRow.Stacks[i];
                 }
-
                 leftRows.Add(leftMiddleRow);
-                
-
-                for (int i = 0; i < Length/2+Length%2; i++)
+                for (int i = 0; i < Length / 2 + Length % 2; i++)
                 {
                     rightMiddleRow.Stacks[i] = middleRow.Stacks[Length / 2 + i];
                 }
-
                 rightRows.Add(rightMiddleRow);
             }
-
-
-            int leftWeight = CalculateLeftWeight(); 
+            int leftWeight = CalculateLeftWeight();
             int rightWeight = CalculateRightWeight();
-
             if (leftWeight < rightWeight)
             {
                 foreach (Row left in leftRows)
@@ -84,7 +73,6 @@ namespace ContainerVervoer.Classes
                     {
                         return true;
                     }
-                    
                 }
             }
             else
@@ -98,8 +86,8 @@ namespace ContainerVervoer.Classes
                 }
             }
             return false;
-        }
 
+        }
 
         public void IsProperlyLoaded()
         {
