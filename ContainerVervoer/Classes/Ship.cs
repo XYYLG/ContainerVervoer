@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Design;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 
 namespace ContainerVervoer.Classes
 {
@@ -35,51 +31,37 @@ namespace ContainerVervoer.Classes
         }
 
         public bool TryToAddContainer(Container container)
-        {
-            List<Row> leftRows = new List<Row>();
-            Row? middleRow = null;
-            List<Row> rightRows = new List<Row>();
-            for (int i = 0; i < Width / 2; i++)
-            {
-                leftRows.Add(Rows[i]);
-            }
-            for (int i = Width / 2 + Width % 2; i < Width; i++)
-            {
-                rightRows.Add(Rows[i]);
-            }
-            if (Width % 2 != 0)
-            {
-                middleRow = Rows[Width / 2];
-                Row leftMiddleRow = new Row(Length / 2);
-                Row rightMiddleRow = new Row(Length / 2 + Length % 2);
-                for (int i = 0; i < Length / 2; i++)
-                {
-                    leftMiddleRow.Stacks[i] = middleRow.Stacks[i];
-                }
-                leftRows.Add(leftMiddleRow);
-                for (int i = 0; i < Length / 2 + Length % 2; i++)
-                {
-                    rightMiddleRow.Stacks[i] = middleRow.Stacks[Length / 2 + i];
-                }
-                rightRows.Add(rightMiddleRow);
-            }
+        { 
             int leftWeight = CalculateLeftWeight();
             int rightWeight = CalculateRightWeight();
-            if (leftWeight < rightWeight)
+            int middleWeight = CalculateMiddleWeight();
+            int minWeight = Math.Min(leftWeight, Math.Min(rightWeight, middleWeight));
+            int middleIndex = Width / 2;
+
+            // Probeer de container toe te voegen aan de middelste rij als het een oneven breedte is en de middelste rij het minst zwaar is
+            if (Width % 2 != 0 && middleWeight == minWeight)
             {
-                foreach (Row left in leftRows)
+                if (_rows[middleIndex].TryToAddContainer(container)) 
                 {
-                    if (left.TryToAddContainer(container))
+                    return true; 
+                } 
+            }
+            // Voeg de container toe aan de rij met het minste gewicht
+            if (leftWeight == minWeight)
+            {
+                foreach (Row row in _rows.Take(middleIndex))
+                {
+                    if (row.TryToAddContainer(container))
                     {
                         return true;
                     }
                 }
             }
-            else
+            else if (rightWeight == minWeight)
             {
-                foreach (Row right in rightRows)
+                foreach (Row row in _rows.Skip(middleIndex + Width % 2))
                 {
-                    if (right.TryToAddContainer(container))
+                    if (row.TryToAddContainer(container))
                     {
                         return true;
                     }
@@ -87,6 +69,19 @@ namespace ContainerVervoer.Classes
             }
             return false;
 
+        }
+
+        public bool LoadContainers(List<Container> containers) 
+        { 
+            foreach (Container container in containers)
+            { 
+                if (!TryToAddContainer(container)) 
+                { 
+                    throw new Exception("Kon container niet toevoegen");
+                } 
+            } 
+            IsBalanced();
+            return true; 
         }
 
         public void IsProperlyLoaded()
@@ -129,6 +124,17 @@ namespace ContainerVervoer.Classes
                 rightWeight += _rows[i].CalculateTotalWeight();
             }
             return rightWeight;
+        }
+
+        public int CalculateMiddleWeight()
+        {
+            int middleWeight = 0; 
+            
+            for (int i = Width / 2; i < Width / 2 + Width % 2; i++) 
+            { 
+                middleWeight += _rows[i].CalculateTotalWeight(); 
+            }
+            return middleWeight;
         }
     }
 }

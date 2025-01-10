@@ -1,32 +1,18 @@
 ﻿using System.Diagnostics;
 using ContainerVervoer.Classes;
 
-int length = 5;
+int length = 4;
 int width = 3;
 
 Ship shipOne = new Ship(length, width);
-Random rand = new Random(1);
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 5; i++) //koeling containers
-{
-    containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, true));
-}
-for (int i = 0; i < 15; i++) //koeling & waardevolle containers
-{
-    containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, true));
-}
+containers.AddRange(ContainerFactory.CreateContainers(15, false, true));  // koeling containers
+containers.AddRange(ContainerFactory.CreateContainers(15, true, true));  // koeling & waardevolle containers
+containers.AddRange(ContainerFactory.CreateContainers(90, false, false)); // normale containers
+containers.AddRange(ContainerFactory.CreateContainers(35, true, false)); // waardevolle containers
 
-for (int i = 0; i < 90; i++) //normale containers
-{
-    containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, false));
-}
-
-for (int i = 0; i < 15; i++) //waardevolle containers
-{
-    containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, false));
-}
 
 
 
@@ -42,7 +28,7 @@ try
 }
 catch (Exception ex)
 {
-    //throw new Exception("Gewicht is te laag.", ex);
+    throw new Exception("Gewicht is te laag.", ex);
 }
 try
 {
@@ -50,7 +36,7 @@ try
 }
 catch (Exception ex)
 {
-    //throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
+    throw new Exception("Het gewicht is niet eerlijk verdeel", ex);
 }
 
 UrlGenerator urlGen = new UrlGenerator();
