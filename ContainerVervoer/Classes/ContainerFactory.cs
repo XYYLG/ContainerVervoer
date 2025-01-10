@@ -2,13 +2,15 @@
 {
     public class ContainerFactory
     {
-        public static List<Container> CreateContainer(int count, int weight, bool isValuable, bool needsCooling)
+        private static readonly Random rand = new Random();
+
+        public static List<Container> CreateContainers(int count, bool isValuable, bool needsCooling)
         {
             List<Container> containers = new List<Container>();
 
-            // Create the specified number of containers
             for (int i = 0; i < count; i++)
             {
+                int weight = rand.Next(Container.EmptyWeight, Container.MaxWeight);
                 containers.Add(new Container(weight, isValuable, needsCooling));
             }
 
