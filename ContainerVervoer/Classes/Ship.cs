@@ -31,7 +31,7 @@ namespace ContainerVervoer.Classes
         }
 
         public bool TryToAddContainer(Container container)
-        { 
+        {
             int leftWeight = CalculateLeftWeight();
             int rightWeight = CalculateRightWeight();
             int middleWeight = CalculateMiddleWeight();
@@ -39,17 +39,18 @@ namespace ContainerVervoer.Classes
             int middleIndex = Width / 2;
 
             // Probeer de container toe te voegen aan de middelste rij als het een oneven breedte is en de middelste rij het minst zwaar is
-            if (Width % 2 != 0 && middleWeight == minWeight)
+            if ((Width % 2 != 0 && middleWeight == minWeight) || Width == 1)
             {
-                if (_rows[middleIndex].TryToAddContainer(container)) 
+                if (_rows[middleIndex].TryToAddContainer(container))
                 {
-                    return true; 
-                } 
+                    return true;
+                }
             }
+
             // Voeg de container toe aan de rij met het minste gewicht
-            if (leftWeight == minWeight)
+            if (leftWeight <= rightWeight)
             {
-                foreach (Row row in _rows.Take(middleIndex))
+                foreach (Row row in _rows.Take(middleIndex).OrderBy(row => row.CalculateTotalWeight()))
                 {
                     if (row.TryToAddContainer(container))
                     {
@@ -57,31 +58,34 @@ namespace ContainerVervoer.Classes
                     }
                 }
             }
-            else if (rightWeight == minWeight)
+            else
             {
-                foreach (Row row in _rows.Skip(middleIndex + Width % 2))
+                foreach (Row row in _rows.Skip(middleIndex + Width % 2).OrderBy(row => row.CalculateTotalWeight()))
                 {
                     if (row.TryToAddContainer(container))
                     {
                         return true;
+
                     }
                 }
+
+
             }
             return false;
-
         }
 
-        public bool LoadContainers(List<Container> containers) 
-        { 
+
+        public bool LoadContainers(List<Container> containers)
+        {
             foreach (Container container in containers)
-            { 
-                if (!TryToAddContainer(container)) 
-                { 
+            {
+                if (!TryToAddContainer(container))
+                {
                     throw new Exception("Kon container niet toevoegen");
-                } 
-            } 
+                }
+            }
             IsBalanced();
-            return true; 
+            return true;
         }
 
         public void IsProperlyLoaded()
@@ -128,13 +132,20 @@ namespace ContainerVervoer.Classes
 
         public int CalculateMiddleWeight()
         {
-            int middleWeight = 0; 
-            
-            for (int i = Width / 2; i < Width / 2 + Width % 2; i++) 
-            { 
-                middleWeight += _rows[i].CalculateTotalWeight(); 
+            int middleWeight = 0;
+
+            for (int i = Width / 2; i < Width / 2 + Width % 2; i++)
+            {
+                middleWeight += _rows[i].CalculateTotalWeight();
             }
             return middleWeight;
+        }
+
+        private int CalculateDistanceFromMiddleRow(int index)
+        {
+            int middleIndex = Width / 2;
+
+            return Math.Abs(middleIndex - index) + (Width - 1) % 2;
         }
     }
 }

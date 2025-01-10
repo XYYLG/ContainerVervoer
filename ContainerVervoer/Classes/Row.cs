@@ -1,4 +1,7 @@
-﻿namespace ContainerVervoer.Classes
+﻿using System.Reflection;
+using System;
+
+namespace ContainerVervoer.Classes
 {
     public class Row
     {
@@ -25,14 +28,16 @@
 
         public bool TryToAddContainer(Container container)
         {
-            for (int i = 0; i < Stacks.Count; i++)
+            List<(Stack stack, int index)> indexedStacks = Stacks.Select((stack, index) => (stack, index))
+                .OrderBy(tuple => tuple.stack.CalculateTotalWeight())
+                .ToList();
+            foreach (var (stack, index) in indexedStacks)
             {
-                Stack stack = Stacks[i];
                 if (stack.TryToAddContainer(container))
                 {
                     if (!container.IsValuable)
                     {
-                        if (IsPreviousAndNextReachable(i))
+                        if (IsPreviousAndNextReachable(index))
                         {
                             return true;
                         }
@@ -40,7 +45,7 @@
                     }
                     else
                     {
-                        if (IsStackReachable(i) && IsPreviousAndNextReachable(i))
+                        if (IsStackReachable(index) && IsPreviousAndNextReachable(index))
                         {
                             return true;
                         }
@@ -49,6 +54,31 @@
                 }
             }
             return false;
+            //for (int i = 0; i < Stacks.Count; i++)
+            //{
+            //    Stack stack = Stacks[i];
+            //    if (stack.TryToAddContainer(container))
+            //    {
+            //        if (!container.IsValuable)
+            //        {
+            //            if (IsPreviousAndNextReachable(i))
+            //            {
+            //                return true;
+            //            }
+            //            stack.TryToRemoveContainer(container);
+            //        }
+            //        else
+            //        {
+            //            if (IsStackReachable(i) && IsPreviousAndNextReachable(i))
+            //            {
+            //                return true;
+            //            }
+            //            stack.TryToRemoveContainer(container);
+            //        }
+            //    }
+            //}
+            //return false;
+
         }
 
         public bool IsStackReachable(int index)
@@ -87,7 +117,7 @@
             }
 
             if (index + 1 < Stacks.Count - 1) //kijkt of kleiner is dan eerste stack
-            { 
+            {
                 nextIsReachable = IsStackReachable(index + 1);
             }
 
@@ -95,15 +125,15 @@
         }
 
         public bool TryToRemoveContainer(Container container)
-        { 
-            foreach (Stack stack in Stacks) 
-            { 
-                if (stack.Containers.Remove(container)) 
-                { 
-                    return true; 
+        {
+            foreach (Stack stack in Stacks)
+            {
+                if (stack.Containers.Remove(container))
+                {
+                    return true;
                 }
             }
-            return false; 
+            return false;
         }
     }
 }

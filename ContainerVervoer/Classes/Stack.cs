@@ -4,13 +4,12 @@
     {
         public List<Container> Containers = new List<Container>(); 
         public bool IsCooled { get; set; }
-        public bool HasValuable { get; private set; }
+        public bool HasValuable => Containers.Any(container => container.IsValuable);
         public static readonly int StackCapacity = 120;
 
         public Stack(bool isCooled)
         {
             IsCooled = isCooled;
-            HasValuable = false;
         }
 
         public bool CanSupportWeight (Container container)
@@ -41,6 +40,7 @@
             { 
                 return false; 
             }
+
             if (HasValuable)
             {
                 return false;
@@ -49,10 +49,6 @@
             if(CanSupportWeight(container))
             { 
                 Containers.Add(container);
-                if (container.IsValuable)
-                {
-                    HasValuable = true;
-                }
                 return true;
             }
             return false;
@@ -60,6 +56,7 @@
 
         public bool TryToRemoveContainer(Container container)
         {
+
             return Containers.Remove(container);
         }
     }
