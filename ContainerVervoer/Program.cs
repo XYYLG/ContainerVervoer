@@ -9,21 +9,21 @@ Random rand = new Random(1);
 
 List<Container> containers = new List<Container>();
 
-for (int i = 0; i < 5; i++) //koeling containers
+for (int i = 0; i < 35; i++) //koeling containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, true));
 }
-for (int i = 0; i < 15; i++) //koeling & waardevolle containers
+for (int i = 0; i < 25; i++) //koeling & waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, true));
 }
 
-for (int i = 0; i < 90; i++) //normale containers
+for (int i = 0; i < 50; i++) //normale containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), false, false));
 }
 
-for (int i = 0; i < 15; i++) //waardevolle containers
+for (int i = 0; i < 35; i++) //waardevolle containers
 {
     containers.Add(new Container(rand.Next(Container.EmptyWeight, Container.MaxWeight), true, false));
 }
