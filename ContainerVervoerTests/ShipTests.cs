@@ -202,5 +202,101 @@ namespace ContainerVervoerTests
             }
         }
 
+        [TestMethod]
+        public void IsProperlyLoadedMethodTest_ShouldThrowException_WhenTotalWeightIsTooLow()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(10, false, false)); // Voeg containers toe
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsProperlyLoaded();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNotNull(ex, "Een uitzondering moet worden gegooid wanneer het totale gewicht te laag is.");
+            Assert.AreEqual("Het gewicht is te laag", ex.Message, "De methode moet een uitzondering gooien met het bericht 'Het gewicht is te laag' wanneer het totale gewicht te laag is.");
+        }
+
+        [TestMethod]
+        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
+            int adequateWeight = (int)(0.6 * maxWeight); // Een gewicht dat binnen de limieten valt
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(adequateWeight, false, false)); // Voeg containers toe
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsProperlyLoaded();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "Gewicht kan niet meer zijn dan 30 ton");
+        }
+
+        [TestMethod]
+        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsExactlyOnLimit()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
+            int limitWeight = (int)(0.5 * maxWeight); // Exact op de grens
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(limitWeight, false, false)); // Voeg containers toe
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsProperlyLoaded();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "Gewicht kan niet meer zijn dan 30 ton");
+        }
+
+        [TestMethod]
+        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsFarAboveLimit()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
+            int highWeight = (int)(0.8 * maxWeight); // Een gewicht dat ver boven de limiet ligt
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(highWeight, false, false)); // Voeg containers toe
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsProperlyLoaded();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "Gewicht kan niet meer zijn dan 30 ton");
+        }
+
+
     }
 }

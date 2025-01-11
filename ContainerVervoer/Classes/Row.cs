@@ -100,17 +100,5 @@ namespace ContainerVervoer.Classes
 
             return previousIsReachable && nextIsReachable;
         }
-
-        //public bool TryToRemoveContainer(Container container)
-        //{
-        //    foreach (Stack stack in Stacks)
-        //    {
-        //        if (stack.Containers.Remove(container))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
     }
 }
