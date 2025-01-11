@@ -88,12 +88,12 @@ namespace ContainerVervoer.Classes
             bool previousIsReachable = true;
             bool nextIsReachable = true;
 
-            if (index - 1 > 0) //kijkt of groter is dan eerste stack
+            if (index - 1 >= 0) // Controleren of groter of gelijk aan 0
             {
                 previousIsReachable = IsStackReachable(index - 1);
             }
 
-            if (index + 1 < Stacks.Count - 1) //kijkt of kleiner is dan eerste stack
+            if (index + 1 < Stacks.Count) // Controleren of kleiner dan het aantal stapels
             {
                 nextIsReachable = IsStackReachable(index + 1);
             }
@@ -101,16 +101,16 @@ namespace ContainerVervoer.Classes
             return previousIsReachable && nextIsReachable;
         }
 
-        public bool TryToRemoveContainer(Container container)
-        {
-            foreach (Stack stack in Stacks)
-            {
-                if (stack.Containers.Remove(container))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //public bool TryToRemoveContainer(Container container)
+        //{
+        //    foreach (Stack stack in Stacks)
+        //    {
+        //        if (stack.Containers.Remove(container))
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
     }
 }

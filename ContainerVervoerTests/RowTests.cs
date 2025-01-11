@@ -292,6 +292,89 @@ namespace ContainerVervoerTests
             Assert.IsTrue(result, "Stapel met kleinere hoogte dan de volgende of vorige stapel moet bereikbaar zijn.");
         }
 
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenBothAreReachable()
+        {
+            // Arrange
+            Row row = new Row(3);
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(1);
+
+            // Assert
+            Assert.IsTrue(result, "Zowel de vorige als de volgende stapel moeten bereikbaar zijn.");
+        }
+
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnFalse_WhenPreviousIsNotReachable()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[0].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(1);
+
+            // Assert
+            Assert.IsFalse(result, "De vorige stapel is niet bereikbaar.");
+        }
+
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnFalse_WhenNextIsNotReachable()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[2].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(1);
+
+            // Assert
+            Assert.IsFalse(result, "De volgende stapel is niet bereikbaar.");
+        }
+
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnFalse_WhenBothAreNotReachable()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[0].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
+            row.Stacks[2].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(1);
+
+            // Assert
+            Assert.IsFalse(result, "Zowel de vorige als de volgende stapel zijn niet bereikbaar.");
+        }
+
+
+
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenCheckingFirstStack()
+        {
+            // Arrange
+            Row row = new Row(3);
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(0);
+
+            // Assert
+            Assert.IsTrue(result, "De eerste stapel moet bereikbaar zijn omdat er geen vorige stapel is.");
+        }
+
+        [TestMethod]
+        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenCheckingLastStack()
+        {
+            // Arrange
+            Row row = new Row(3);
+
+            // Act
+            bool result = row.IsPreviousAndNextReachable(2);
+
+            // Assert
+            Assert.IsTrue(result, "De laatste stapel moet bereikbaar zijn omdat er geen volgende stapel is.");
+        }
 
     }
 }
