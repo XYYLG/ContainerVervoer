@@ -12,16 +12,24 @@
             IsCooled = isCooled;
         }
 
-        public bool CanSupportWeight (Container container)
+        public bool CanSupportWeight(Container container)
         {
+            int totalWeight = CalculateTotalWeight();
             if (Containers.Count > 0)
             {
-                 if(CalculateTotalWeight() - Containers[0].Weight + container.Weight > StackCapacity)
-                 return false;
-                
+                if (totalWeight + container.Weight > StackCapacity)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (container.Weight > StackCapacity)
+                {
+                    return false;
+                }
             }
             return true;
-               
         }
 
         public int CalculateTotalWeight()
@@ -37,8 +45,8 @@
         public bool TryToAddContainer(Container container)
         {
             if (container.NeedsCooling && !IsCooled)
-            { 
-                return false; 
+            {
+                return false;
             }
 
             if (HasValuable)
@@ -46,8 +54,8 @@
                 return false;
             }
 
-            if(CanSupportWeight(container))
-            { 
+            if (CanSupportWeight(container))
+            {
                 Containers.Add(container);
                 return true;
             }
@@ -56,7 +64,6 @@
 
         public bool TryToRemoveContainer(Container container)
         {
-
             return Containers.Remove(container);
         }
     }
