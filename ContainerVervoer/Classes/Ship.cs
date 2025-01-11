@@ -74,19 +74,18 @@ namespace ContainerVervoer.Classes
             return false;
         }
 
-
-        public bool LoadContainers(List<Container> containers)
-        {
-            foreach (Container container in containers)
-            {
-                if (!TryToAddContainer(container))
-                {
-                    throw new Exception("Kon container niet toevoegen");
-                }
-            }
-            IsBalanced();
-            return true;
-        }
+        //public bool LoadContainers(List<Container> containers)
+        //{
+        //    foreach (Container container in containers)
+        //    {
+        //        if (!TryToAddContainer(container))
+        //        {
+        //            throw new Exception("Kon container niet toevoegen");
+        //        }
+        //    }
+        //    IsBalanced();
+        //    return true;
+        //}
 
         public void IsProperlyLoaded()
         {
