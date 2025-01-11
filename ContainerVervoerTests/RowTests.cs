@@ -167,9 +167,8 @@ namespace ContainerVervoerTests
             //Assert
             Assert.AreEqual("Gewicht kan niet meer zijn dan 30 ton", exception.Message);
         }
-
         [TestMethod]
-        public void TryToAddContainer_ShouldReturnFalse_WhenPreviousAndNextNotReachable()
+        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenPreviousAndNextNotReachable()
         {
             // Arrange
             Row row = new Row(3);
@@ -183,12 +182,16 @@ namespace ContainerVervoerTests
             bool result = row.TryToAddContainer(container);
 
             // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(result); CollectionAssert.DoesNotContain(row.Stacks[1].Containers, container);
+            Assert.IsFalse(result, "Expected TryToAddContainer to return false because previous and next stacks are not reachable.");
+            CollectionAssert.DoesNotContain(row.Stacks[0].Containers, container, "Container should not be added to stack 0.");
+            CollectionAssert.DoesNotContain(row.Stacks[1].Containers, container, "Container should not be added to stack 1.");
+            CollectionAssert.DoesNotContain(row.Stacks[2].Containers, container, "Container should not be added to stack 2.");
         }
 
+
+
         [TestMethod]
-        public void TryToAddContainer_ShouldReturnFalse_WhenValuableContainerAndStackNotReachable()
+        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenValuableContainerAndStackNotReachable()
         {
             // Arrange
             Row row = new Row(3);
@@ -205,5 +208,90 @@ namespace ContainerVervoerTests
             Assert.IsFalse(result, "De container werd toegevoegd terwijl dit niet zou moeten gebeuren.");
             CollectionAssert.DoesNotContain(row.Stacks[1].Containers, container, "De container is ten onrechte toegevoegd aan de tweede stapel.");
         }
+
+        [TestMethod]
+        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenStackIsFirstOrLast()
+        {
+            // Arrange
+            Row row = new Row(3);
+
+            // Act
+            bool resultFirst = row.IsStackReachable(0);
+            bool resultLast = row.IsStackReachable(2);
+
+            // Assert
+            Assert.IsTrue(resultFirst, "Eerste stapel moet bereikbaar zijn.");
+            Assert.IsTrue(resultLast, "Laatste stapel moet bereikbaar zijn.");
+        }
+
+        [TestMethod]
+        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenCurrentHeightIsZero()
+        {
+            // Arrange
+            Row row = new Row(3);
+
+            // Act
+            bool result = row.IsStackReachable(1);
+
+            // Assert
+            Assert.IsTrue(result, "Stapel met hoogte 0 moet bereikbaar zijn.");
+        }
+
+        [TestMethod]
+        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenStackHasNoValuableContainer()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[1].Containers.Add(new Container(10, false, false)); // Voeg een gewone container toe
+
+            // Act
+            bool result = row.IsStackReachable(1);
+
+            // Assert
+            Assert.IsTrue(result, "Stapel zonder waardevolle container moet bereikbaar zijn.");
+        }
+
+        [TestMethod]
+        public void IsStackReachableMethodTest_ShouldReturnFalse_WhenCurrentHeightGreaterThanNextAndPreviousHeight()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe
+            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg nog een container toe om de hoogte te verhogen
+            row.Stacks[0].Containers.Add(new Container(5, false, false)); // Voeg een gewone container toe aan de vorige stapel
+            row.Stacks[2].Containers.Add(new Container(5, false, false)); // Voeg een gewone container toe aan de volgende stapel
+
+            // Act
+            bool result = row.IsStackReachable(1);
+
+            // Debugging informatie
+            int currentHeight = row.Stacks[1].Containers.Count;
+            int nextHeight = row.Stacks[2].Containers.Count;
+            int previousHeight = row.Stacks[0].Containers.Count;
+
+            Console.WriteLine($"currentHeight: {currentHeight}, nextHeight: {nextHeight}, previousHeight: {previousHeight}");
+
+            // Assert
+            Assert.IsFalse(result, "Stapel met grotere hoogte dan de volgende en vorige stapel moet niet bereikbaar zijn.");
+        }
+
+
+        [TestMethod]
+        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenCurrentHeightLessThanNextOrPreviousHeight()
+        {
+            // Arrange
+            Row row = new Row(3);
+            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe
+            row.Stacks[0].Containers.Add(new Container(20, false, false)); // Voeg een container toe aan de vorige stapel om de hoogte te verhogen
+            row.Stacks[2].Containers.Add(new Container(5, false, false));  // Voeg een gewone container toe aan de volgende stapel
+
+            // Act
+            bool result = row.IsStackReachable(1);
+
+            // Assert
+            Assert.IsTrue(result, "Stapel met kleinere hoogte dan de volgende of vorige stapel moet bereikbaar zijn.");
+        }
+
+
     }
 }

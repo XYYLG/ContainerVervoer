@@ -29,9 +29,10 @@ namespace ContainerVervoer.Classes
         public bool TryToAddContainer(Container container)
         {
             List<(Stack stack, int index)> indexedStacks = Stacks.Select((stack, index) => (stack, index))
-                .OrderBy(tuple => tuple.stack.CalculateTotalWeight())
+                .OrderBy(tuple => tuple.stack.CalculateTotalWeight()) // bakje met meerdere objecten
                 .ToList();
-            foreach (var (stack, index) in indexedStacks)
+
+            foreach ((Stack stack, int index) in indexedStacks)
             {
                 if (stack.TryToAddContainer(container))
                 {
@@ -54,31 +55,6 @@ namespace ContainerVervoer.Classes
                 }
             }
             return false;
-            //for (int i = 0; i < Stacks.Count; i++)
-            //{
-            //    Stack stack = Stacks[i];
-            //    if (stack.TryToAddContainer(container))
-            //    {
-            //        if (!container.IsValuable)
-            //        {
-            //            if (IsPreviousAndNextReachable(i))
-            //            {
-            //                return true;
-            //            }
-            //            stack.TryToRemoveContainer(container);
-            //        }
-            //        else
-            //        {
-            //            if (IsStackReachable(i) && IsPreviousAndNextReachable(i))
-            //            {
-            //                return true;
-            //            }
-            //            stack.TryToRemoveContainer(container);
-            //        }
-            //    }
-            //}
-            //return false;
-
         }
 
         public bool IsStackReachable(int index)
@@ -100,11 +76,12 @@ namespace ContainerVervoer.Classes
                 return true;
             }
 
-            int NextHeight = Stacks[index + 1].Containers.Count;
-            int PreviousHeight = Stacks[index - 1].Containers.Count;
+            int nextHeight = Stacks[index + 1].Containers.Count;
+            int previousHeight = Stacks[index - 1].Containers.Count;
 
-            return currentHeight > NextHeight || currentHeight > PreviousHeight;
+            return currentHeight <= nextHeight && currentHeight <= previousHeight;
         }
+
 
         public bool IsPreviousAndNextReachable(int index)
         {
