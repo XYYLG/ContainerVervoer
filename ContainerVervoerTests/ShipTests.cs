@@ -297,6 +297,110 @@ namespace ContainerVervoerTests
             Assert.IsNull(ex, "Gewicht kan niet meer zijn dan 30 ton");
         }
 
+        [TestMethod]
+        public void IsBalancedMethodTest_ShouldNotThrowException_WhenWeightIsEvenlyDistributed()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int totalWeight = 27; // Zorg ervoor dat het totale gewicht binnen de limieten van de containers valt
+            int halfWeight = totalWeight / 2;
+
+            // Verdeel het gewicht gelijkmatig over de linker- en rechterzijde
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(halfWeight, false, false));
+            ship.Rows[2].Stacks[2].TryToAddContainer(new Container(halfWeight, false, false));
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsBalanced();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het gewicht evenwichtig is verdeeld.");
+        }
+
+        [TestMethod]
+        public void IsBalancedMethodTest_ShouldThrowException_WhenWeightDifferenceExceedsTwentyPercent()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int totalWeight = 27; // Zorg ervoor dat het totale gewicht binnen de limieten van de containers valt
+            int leftWeight = (int)(0.7 * totalWeight);
+            int rightWeight = totalWeight - leftWeight;
+
+            // Voeg containers toe die een gewichtsverschil van meer dan 20% veroorzaken
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(leftWeight, false, false));
+            ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsBalanced();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNotNull(ex, "Een uitzondering moet worden gegooid wanneer het gewichtsverschil meer dan 20% is.");
+            Assert.AreEqual("Het gewicht is niet eerlijk verdeeld", ex.Message, "De methode moet een uitzondering gooien met het bericht 'Het gewicht is niet eerlijk verdeeld' wanneer het gewichtsverschil meer dan 20% is.");
+        }
+
+        [TestMethod]
+        public void IsBalancedMethodTest_ShouldNotThrowException_WhenTotalWeightIsZero()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsBalanced();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht nul is.");
+        }
+
+        [TestMethod]
+        public void IsBalancedMethodTest_ShouldNotThrowException_WhenWeightDifferenceIsExactlyTwentyPercent()
+        {
+            // Arrange
+            Ship ship = new Ship(3, 3);
+            int totalWeight = 27; // Zorg ervoor dat het totale gewicht binnen de limieten van de containers valt
+            int leftWeight = (int)(0.6 * totalWeight);
+            int rightWeight = totalWeight - leftWeight;
+
+            // Voeg containers toe die een gewichtsverschil van precies 20% veroorzaken
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(leftWeight, false, false));
+            ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
+
+            // Act
+            Exception ex = null;
+            try
+            {
+                ship.IsBalanced();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+
+            // Assert
+            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het gewichtsverschil precies 20% is.");
+        }
 
     }
 }
