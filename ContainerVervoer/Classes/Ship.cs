@@ -126,12 +126,5 @@ namespace ContainerVervoer.Classes
             }
             return middleWeight;
         }
-
-        private int CalculateDistanceFromMiddleRow(int index)
-        {
-            int middleIndex = Width / 2;
-
-            return Math.Abs(middleIndex - index) + (Width - 1) % 2;
-        }
     }
 }
