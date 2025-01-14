@@ -91,12 +91,12 @@ namespace ContainerVervoer.Classes
             int maxWeight = Length * Width * (Stack.StackCapacity + Container.MaxWeight);
             int totalWeight = CalculateTotalWeight();
 
-            if (2 * totalWeight > maxWeight)
+            if (2 * totalWeight >= maxWeight)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         public bool IsBalanced()

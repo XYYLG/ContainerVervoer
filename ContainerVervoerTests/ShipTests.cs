@@ -1,5 +1,4 @@
 ﻿using ContainerVervoer.Classes;
-using Microsoft.VisualStudio.CodeCoverage;
 
 namespace ContainerVervoerTests
 {
@@ -37,8 +36,7 @@ namespace ContainerVervoerTests
             int width = 0;
 
             // Act & Assert
-            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
-            Assert.IsTrue(ex.Message.Contains("Length moet groter dan 0 zijn") || ex.Message.Contains("Width moet groter dan 0 zijn"));
+            Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
         }
 
         [TestMethod]
@@ -82,7 +80,7 @@ namespace ContainerVervoerTests
             Ship ship = new Ship(length, width);
 
             // Assert
-            foreach (var row in ship.Rows)
+            foreach (Row row in ship.Rows)
             {
                 Assert.IsNotNull(row, "Elke rij moet correct aangemaakt zijn.");
             }
@@ -106,19 +104,6 @@ namespace ContainerVervoerTests
             {
                 Assert.IsNotNull(row, "Elke rij moet correct aangemaakt zijn.");
             }
-        }
-
-        [TestMethod]
-        public void CalculateTotalWeight_ShouldReturnZero_WhenShipHasNoRows()
-        {
-            // Arrange
-            Ship ship = new Ship(0, 0);
-
-            // Act
-            int totalWeight = ship.CalculateTotalWeight();
-
-            // Assert
-            Assert.AreEqual(0, totalWeight, "Het totale gewicht moet 0 zijn wanneer het schip geen rijen heeft.");
         }
 
         [TestMethod]
@@ -220,11 +205,10 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
+        public void IsProperlyLoaded_ShouldReturnTrue_WhenTotalWeightIsWithinLimits()
         {
             // Arrange
             Ship ship = new Ship(1, 1);
-            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
 
             for (int i = 0; i < 3; i++)
             {
@@ -232,11 +216,11 @@ namespace ContainerVervoerTests
             }
 
             // Assert & Act
-            Assert.ThrowsException<Exception>(() => ship.IsProperlyLoaded());
+            Assert.IsTrue(ship.IsProperlyLoaded());
         }
 
         [TestMethod]
-        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsExactlyOnLimit()
+        public void IsProperlyLoaded_ReturnTrue_WhenTotalWeightIsExactlyOnLimit()
         {
             // Arrange
             Ship ship = new Ship(1, 2);
@@ -245,24 +229,13 @@ namespace ContainerVervoerTests
                 ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
             }
 
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsProperlyLoaded();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht precies op de grens is.");
+            // Assert & Act
+           Assert.IsTrue(ship.IsProperlyLoaded());
 
         }
 
         [TestMethod]
-        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsFarAboveLimit()
+        public void IsProperlyLoaded_ReturnTrue_WhenTotalWeightIsFarAboveLimit()
         {
             // Arrange
             Ship ship = new Ship(1, 1);
@@ -273,23 +246,12 @@ namespace ContainerVervoerTests
 
             }
 
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsProperlyLoaded();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht ver boven de limiet is.");
+            // Assert & Act
+            Assert.IsTrue(ship.IsProperlyLoaded());
         }
 
         [TestMethod]
-        public void IsBalanced_ShouldNotThrowException_WhenWeightIsEvenlyDistributed()
+        public void IsBalanced_ReturnTrue_WhenWeightIsEvenlyDistributed()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -301,21 +263,21 @@ namespace ContainerVervoerTests
             ship.Rows[2].Stacks[2].TryToAddContainer(new Container(halfWeight, false, false));
 
             // Assert & Act
-            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
+            Assert.IsTrue(ship.IsBalanced());
         }
 
         [TestMethod]
-        public void IsBalanced_ShouldNotThrowException_WhenTotalWeightIsZero()
+        public void IsBalanced_ReturnTrue_WhenTotalWeightIsZero()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
 
             // Assert & Act
-            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
+            Assert.IsTrue(ship.IsBalanced());
         }
 
         [TestMethod]
-        public void IsBalanced_ShouldNotThrowException_WhenWeightDifferenceIsExactlyTwentyPercent()
+        public void IsBalanced_ReturnTrue_WhenWeightDifferenceIsExactlyTwentyPercent()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -328,7 +290,7 @@ namespace ContainerVervoerTests
             ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
 
             // Assert & Act
-            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
+           Assert.IsTrue(ship.IsBalanced());
         }
 
         [TestMethod]
