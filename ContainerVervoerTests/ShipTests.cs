@@ -1,10 +1,46 @@
 ﻿using ContainerVervoer.Classes;
+using Microsoft.VisualStudio.CodeCoverage;
 
 namespace ContainerVervoerTests
 {
     [TestClass]
     public class ShipTests
     {
+        [TestMethod]
+        public void ShipConstructor_ShouldThrowException_WhenLengthIsZero()
+        { // Arrange
+            int length = 0;
+            int width = 5;
+
+            // Act & Assert
+            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
+            Assert.AreEqual("Length moet groter dan 0 zijn", ex.Message);
+        }
+
+        [TestMethod]
+        public void ShipConstructor_ShouldThrowException_WhenWidthIsZero()
+        {
+            // Arrange
+            int length = 5;
+            int width = 0;
+
+            // Act & Assert
+            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
+            Assert.AreEqual("Width moet groter dan 0 zijn", ex.Message);
+        }
+
+        [TestMethod]
+        public void ShipConstructor_ShouldThrowException_WhenLengthAndWidthAreZero()
+        {
+            // Arrange
+            int length = 0;
+            int width = 0;
+
+            // Act & Assert
+            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
+            Assert.IsTrue(ex.Message.Contains("Length moet groter dan 0 zijn") || ex.Message.Contains("Width moet groter dan 0 zijn"));
+        }
+
         [TestMethod]
         public void ShipConstructorTest_ShouldSetLengthAndWidth()
         {
@@ -195,19 +231,8 @@ namespace ContainerVervoerTests
                 ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
             }
 
-            // Act
-            Exception? ex = null;
-            try
-            {
-                ship.IsProperlyLoaded();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht binnen de limieten is.");
+            // Assert & Act
+            Assert.ThrowsException<Exception>(() => ship.IsProperlyLoaded());
         }
 
         [TestMethod]

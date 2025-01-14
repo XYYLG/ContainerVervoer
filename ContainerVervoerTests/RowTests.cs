@@ -269,13 +269,6 @@ namespace ContainerVervoerTests
             // Act
             bool result = row.IsStackReachable(1);
 
-            // Debugging informatie
-            int currentHeight = row.Stacks[1].Containers.Count;
-            int nextHeight = row.Stacks[2].Containers.Count;
-            int previousHeight = row.Stacks[0].Containers.Count;
-
-            Console.WriteLine($"currentHeight: {currentHeight}, nextHeight: {nextHeight}, previousHeight: {previousHeight}");
-
             // Assert
             Assert.IsTrue(result, "Stapel met grotere hoogte dan de volgende en vorige stapel moet niet bereikbaar zijn.");
         }

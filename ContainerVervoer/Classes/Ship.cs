@@ -11,12 +11,26 @@ namespace ContainerVervoer.Classes
 
         public Ship(int length, int width)
         {
-            Length = length;
-            Width = width;
-
-            for (int i = 0; i < width; i++) //rij aanmaken
+            try
             {
-                _rows.Add(new Row(length));
+                if (length <= 0)
+                {
+                    throw new ArgumentException("Length moet groter dan 0 zijn");
+                }
+                if (width <= 0)
+                {
+                    throw new ArgumentException("Width moet groter dan 0 zijn");
+                }
+                Length = length;
+                Width = width;
+                for (int i = 0; i < width; i++) //rij aanmaken
+                {
+                    _rows.Add(new Row(length));
+                }
+            }
+            catch (ArgumentException ex)
+            { // Log de uitzondering of doe iets anders met de foutmelding
+                Console.WriteLine(ex.Message); throw; // Hergooi de uitzondering na logging, zodat de aanroeper het ook weet
             }
         }
 
