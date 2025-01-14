@@ -42,6 +42,7 @@ namespace ContainerVervoer.Classes
             {
                 totalWeight += row.CalculateTotalWeight();
             }
+
             return totalWeight;
         }
 
@@ -84,6 +85,7 @@ namespace ContainerVervoer.Classes
                     }
                 }
             }
+
             return false;
         }
 

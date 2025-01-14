@@ -6,7 +6,7 @@ namespace ContainerVervoerTests
     public class ShipTests
     {
         [TestMethod]
-        public void ShipConstructor_ShouldThrowException_WhenLengthIsZero()
+        public void ShipConstructorTest_ShouldThrowException_WhenLengthIsZero()
         { // Arrange
             int length = 0;
             int width = 5;
@@ -17,7 +17,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void ShipConstructor_ShouldThrowException_WhenWidthIsZero()
+        public void ShipConstructorTest_ShouldThrowException_WhenWidthIsZero()
         {
             // Arrange
             int length = 5;
@@ -29,7 +29,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void ShipConstructor_ShouldThrowException_WhenLengthAndWidthAreZero()
+        public void ShipConstructorTest_ShouldThrowException_WhenLengthAndWidthAreZero()
         {
             // Arrange
             int length = 0;

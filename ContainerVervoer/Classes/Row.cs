@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace ContainerVervoer.Classes
 {
@@ -8,7 +6,6 @@ namespace ContainerVervoer.Classes
     {
         private List<Stack> _stacks = new List<Stack>();
         public ReadOnlyCollection<Stack> Stacks => _stacks.AsReadOnly();
-
 
         public Row(int length)
         {
@@ -26,6 +23,7 @@ namespace ContainerVervoer.Classes
             {
                 totalWeight += stack.CalculateTotalWeight();
             }
+
             return totalWeight;
         }
 
@@ -57,6 +55,7 @@ namespace ContainerVervoer.Classes
                     }
                 }
             }
+
             return false;
         }
 
@@ -84,7 +83,6 @@ namespace ContainerVervoer.Classes
 
             return currentHeight > nextHeight || currentHeight > previousHeight;
         }
-
 
         public bool IsPreviousAndNextReachable(int index)
         {

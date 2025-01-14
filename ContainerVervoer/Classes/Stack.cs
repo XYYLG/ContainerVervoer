@@ -6,7 +6,6 @@ namespace ContainerVervoer.Classes
     {
         private List<Container> _containers = new List<Container>();
         public ReadOnlyCollection<Container> Containers => _containers.AsReadOnly();
-
         public bool IsCooled { get; set; }
         public bool HasValuable => Containers.Any(container => container.IsValuable);
         public static readonly int StackCapacity = 120;
@@ -33,6 +32,7 @@ namespace ContainerVervoer.Classes
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -43,6 +43,7 @@ namespace ContainerVervoer.Classes
             {
                 totalWeight += container.Weight;
             }
+
             return totalWeight;
         }
 

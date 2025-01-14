@@ -217,11 +217,13 @@ namespace ContainerVervoerTests
             Container existingContainer3 = new Container(25, false, false);
             Container existingContainer4 = new Container(25, false, false);
             Container existingContainer5 = new Container(25, false, false);
+
             stack.TryToAddContainer(existingContainer);
             stack.TryToAddContainer(existingContainer2);
             stack.TryToAddContainer(existingContainer3);
             stack.TryToAddContainer(existingContainer4);
             stack.TryToAddContainer(existingContainer5);
+
             Container newContainer = new Container(25, false, false); // Net boven de capaciteit (120-10+1=111)
 
             // Act
@@ -281,8 +283,10 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Stack stack = new Stack(false);
+
             Container container1 = new Container(10, false, false);
             Container container2 = new Container(20, false, false);
+
             stack.TryToAddContainer(container1);
             stack.TryToAddContainer(container2);
 
