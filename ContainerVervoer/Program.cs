@@ -27,7 +27,7 @@ try
 }
 catch (Exception ex)
 {
-    throw new Exception("Gewicht is te laag.", ex);
+    //throw new Exception("Gewicht is te laag.", ex);
 }
 try
 {

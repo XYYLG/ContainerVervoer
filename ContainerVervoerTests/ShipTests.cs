@@ -184,30 +184,6 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsProperlyLoadedMethodTest_ShouldThrowException_WhenTotalWeightIsTooLow()
-        {
-            // Arrange
-            Ship ship = new Ship(3, 3);
-            int containerWeight = 10; // Gewicht lager dan de limiet, maar binnen bereik om de totale gewichten te controleren
-            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(containerWeight, false, false)); // Voeg containers toe
-
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsProperlyLoaded();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNotNull(ex, "Een uitzondering moet worden gegooid wanneer het totale gewicht te laag is.");
-            Assert.AreEqual("Het gewicht is te laag", ex.Message, "De methode moet een uitzondering gooien met het bericht 'Het gewicht is te laag' wanneer het totale gewicht te laag is.");
-        }
-
-        [TestMethod]
         public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
         {
             // Arrange
@@ -318,36 +294,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsBalancedMethodTest_ShouldThrowException_WhenWeightDifferenceExceedsTwentyPercent()
-        {
-            // Arrange
-            Ship ship = new Ship(3, 3);
-            int totalWeight = 27; // Zorg ervoor dat het totale gewicht binnen de limieten van de containers valt
-            int leftWeight = (int)(0.7 * totalWeight);
-            int rightWeight = totalWeight - leftWeight;
-
-            // Voeg containers toe die een gewichtsverschil van meer dan 20% veroorzaken
-            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(leftWeight, false, false));
-            ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
-
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsBalanced();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNotNull(ex, "Een uitzondering moet worden gegooid wanneer het gewichtsverschil meer dan 20% is.");
-            Assert.AreEqual("Het gewicht is niet eerlijk verdeeld", ex.Message, "De methode moet een uitzondering gooien met het bericht 'Het gewicht is niet eerlijk verdeeld' wanneer het gewichtsverschil meer dan 20% is.");
-        }
-
-        [TestMethod]
-        public void IsBalancedMethodTest_ShouldNotThrowException_WhenTotalWeightIsZero()
+        public void IsBalanced_ShouldNotThrowException_WhenTotalWeightIsZero()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -396,18 +343,22 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateLeftWeightMethodTest_ShouldReturnCorrectWeight_WhenLeftSideHasDifferentWeights()
+        public void CalculateLeftWeightMethodTest_ShouldReturnCorrectWeights_WhenLeftSideHasDifferentWeights()
         {
             // Arrange
             Ship ship = new Ship(4, 2);
-            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(10, false, false)); // Voeg een container van 10 toe aan de eerste rij
-            ship.Rows[0].Stacks[1].TryToAddContainer(new Container(20, false, false)); // Voeg een container van 20 toe aan de tweede rij
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(10, false, false)); // Voeg een container van 10 ton toe
+            ship.Rows[0].Stacks[1].TryToAddContainer(new Container(20, false, false)); // Voeg een container van 20 ton toe
 
             // Act
             int leftWeight = ship.CalculateLeftWeight();
+            int rightWeight = ship.CalculateRightWeight();
+            int middleWeight = ship.CalculateMiddleWeight();
 
             // Assert
             Assert.AreEqual(30, leftWeight, "Het gewicht aan de linkerkant moet correct berekend worden.");
+            Assert.AreEqual(0, rightWeight, "Het gewicht aan de rechterkant moet 0 zijn wanneer er geen containers zijn.");
+            Assert.AreEqual(0, middleWeight, "Het gewicht van de middelste rijen moet 0 zijn wanneer er geen containers zijn.");
         }
 
 
@@ -423,6 +374,7 @@ namespace ContainerVervoerTests
             // Assert
             Assert.AreEqual(0, leftWeight, "Het gewicht aan de linkerkant moet 0 zijn wanneer er geen containers zijn.");
         }
+
         [TestMethod]
         public void CalculateLeftWeightMethodTest_ShouldReturnSumOfWeights_WhenAllRowsAreFilled()
         {

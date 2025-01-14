@@ -68,8 +68,6 @@ namespace ContainerVervoer.Classes
 
                     }
                 }
-
-
             }
             return false;
         }
@@ -83,6 +81,7 @@ namespace ContainerVervoer.Classes
             {
                 return false;
             }
+
             return true;
         }
 
@@ -106,6 +105,7 @@ namespace ContainerVervoer.Classes
             {
                 leftWeight += _rows[i].CalculateTotalWeight();
             }
+
             return leftWeight;
         }
 
@@ -116,6 +116,7 @@ namespace ContainerVervoer.Classes
             {
                 rightWeight += _rows[i].CalculateTotalWeight();
             }
+
             return rightWeight;
         }
 
@@ -127,6 +128,7 @@ namespace ContainerVervoer.Classes
             {
                 middleWeight += _rows[i].CalculateTotalWeight();
             }
+
             return middleWeight;
         }
     }
