@@ -20,7 +20,10 @@ foreach (Container container in containers)
 
 try
 {
-    shipOne.IsProperlyLoaded();
+    if (!shipOne.IsProperlyLoaded())
+    {
+        throw new Exception();
+    }
 }
 catch (Exception ex)
 {
@@ -28,7 +31,10 @@ catch (Exception ex)
 }
 try
 {
-    shipOne.IsBalanced();
+    if (!shipOne.IsBalanced())
+    {
+        throw new Exception();
+    }
 }
 catch (Exception ex)
 {

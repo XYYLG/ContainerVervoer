@@ -14,22 +14,22 @@
 
         public bool CanSupportWeight(Container container)
         {
-            int totalWeight = CalculateTotalWeight();
             if (Containers.Count > 0)
             {
-                if (totalWeight + container.Weight > StackCapacity)
+                int totalWeight = CalculateTotalWeight();
+                if (totalWeight - Containers[0].Weight + container.Weight <= StackCapacity)
                 {
-                    return false;
+                    return true;
                 }
             }
             else
             {
-                if (container.Weight > StackCapacity)
+                if (container.Weight <= StackCapacity)
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         public int CalculateTotalWeight()
@@ -59,6 +59,7 @@
                 Containers.Add(container);
                 return true;
             }
+
             return false;
         }
 

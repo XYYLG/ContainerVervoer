@@ -74,26 +74,29 @@ namespace ContainerVervoer.Classes
             return false;
         }
 
-        public void IsProperlyLoaded()
+        public bool IsProperlyLoaded()
         {
             int maxWeight = Length * Width * (Stack.StackCapacity + Container.MaxWeight);
             int totalWeight = CalculateTotalWeight();
 
-            if (totalWeight <= 0.5 * maxWeight)
+            if (2 * totalWeight > maxWeight)
             {
-                throw new Exception("Het gewicht is te laag");
+                return false;
             }
+            return true;
         }
 
-        public void IsBalanced()
+        public bool IsBalanced()
         {
             int totalWeight = CalculateTotalWeight();
             double difference = Math.Abs(CalculateLeftWeight() - CalculateRightWeight()) / (double)totalWeight * 100; // berekent het % verschil van links & rechts
 
             if (difference > 20)
             {
-                throw new Exception("Het gewicht is niet eerlijk verdeeld");
+                return false;
             }
+
+            return true;
         }
 
         public int CalculateLeftWeight()
