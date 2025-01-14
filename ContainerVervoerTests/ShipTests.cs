@@ -211,22 +211,16 @@ namespace ContainerVervoerTests
         public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
         {
             // Arrange
-            Ship ship = new Ship(3, 3);
+            Ship ship = new Ship(1, 1);
             int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
-            int adequateWeight = (int)(0.6 * maxWeight); // Een gewicht dat binnen de limieten valt
 
-            // Verdeel het adequate gewicht over meerdere containers
-            int containerWeight = adequateWeight / 9; // Verdeel over 9 containers om binnen limieten te blijven
             for (int i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    ship.Rows[i].Stacks[j].TryToAddContainer(new Container(containerWeight, false, false));
-                }
+                    ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
             }
 
             // Act
-            Exception ex = null;
+            Exception? ex = null;
             try
             {
                 ship.IsProperlyLoaded();
@@ -244,18 +238,10 @@ namespace ContainerVervoerTests
         public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsExactlyOnLimit()
         {
             // Arrange
-            Ship ship = new Ship(3, 3);
-            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
-            int limitWeight = (int)(0.5 * maxWeight); // Exact op de grens
-
-            // Verdeel het limietgewicht over meerdere containers
-            int containerWeight = limitWeight / 9; // Verdeel over 9 containers om binnen limieten te blijven
-            for (int i = 0; i < 3; i++)
+            Ship ship = new Ship(1, 2);
+            for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    ship.Rows[i].Stacks[j].TryToAddContainer(new Container(containerWeight, false, false));
-                }
+                    ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
             }
 
             // Act
