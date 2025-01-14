@@ -66,10 +66,13 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Stack stack = new Stack(false);
-            Container existingContainer = new Container(10, false, false);
+            Container existingContainer = new Container(30, false, false);
             stack.Containers.Add(existingContainer);
-            int stackCapacity = 30; // Stel de capaciteit in de Stack-klasse
-            Container newContainer = new Container(stackCapacity - 10 + 1, false, false); // net boven de capaciteit
+            stack.Containers.Add(existingContainer);
+            stack.Containers.Add(existingContainer);
+            stack.Containers.Add(existingContainer);
+            stack.Containers.Add(existingContainer);
+            Container newContainer = new Container(10, false, false); // net boven de capaciteit
 
             // Act
             bool result = stack.CanSupportWeight(newContainer);
@@ -209,9 +212,15 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Stack stack = new Stack(false);
-            Container existingContainer = new Container(10, false, false);
+            Container existingContainer = new Container(25, false, false);
+            Container existingContainer2 = new Container(25, false, false);
+            Container existingContainer3 = new Container(25, false, false);
+            Container existingContainer4 = new Container(25, false, false);
             stack.Containers.Add(existingContainer);
-            Container newContainer = new Container(111, false, false); // Net boven de capaciteit (120-10+1=111)
+            stack.Containers.Add(existingContainer2);
+            stack.Containers.Add(existingContainer3);
+            stack.Containers.Add(existingContainer4);
+            Container newContainer = new Container(25, false, false); // Net boven de capaciteit (120-10+1=111)
 
             // Act
             bool result = stack.TryToAddContainer(newContainer);

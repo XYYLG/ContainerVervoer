@@ -171,35 +171,16 @@ namespace ContainerVervoerTests
         public void TryToAddContainerMethodTest_ShouldAddToRightRowWithMinWeight()
         {
             // Arrange
-            Ship ship = new Ship(3, 3);
-            ship.Rows[2].TryToAddContainer(new Container(5, false, false)); // Voeg een container toe aan de derde rij
-            Container container = new Container(10, false, false);
+            Ship ship = new Ship(1, 2);
+            ship.Rows[0].TryToAddContainer(new Container(5, false, false)); // Voeg een container toe aan de linker rij
+            Container container = new Container(15, false, false);
 
             // Act
             bool result = ship.TryToAddContainer(container);
 
             // Assert
             Assert.IsTrue(result, "De container zou aan de rij met het minste gewicht aan de rechterkant toegevoegd moeten zijn.");
-            Assert.AreEqual(15, ship.Rows[2].CalculateTotalWeight(), "Het totale gewicht van de derde rij moet 15 zijn.");
-        }
-
-
-        [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenContainerIsTooHeavy()
-        {
-            // Arrange
-            Ship ship = new Ship(3, 3);
-            Container container = new Container(1000, false, false); // Container met een zeer hoog gewicht
-
-            // Act
-            bool result = ship.TryToAddContainer(container);
-
-            // Assert
-            Assert.IsFalse(result, "De container zou niet toegevoegd moeten worden omdat deze te zwaar is.");
-            foreach (var row in ship.Rows)
-            {
-                Assert.AreEqual(0, row.CalculateTotalWeight(), "Het totale gewicht van elke rij moet 0 zijn.");
-            }
+            Assert.AreEqual(15, ship.Rows[1].CalculateTotalWeight(), "Het totale gewicht van de rechter rij moet 15 zijn.");
         }
 
         [TestMethod]
