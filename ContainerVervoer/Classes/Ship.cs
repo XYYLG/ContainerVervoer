@@ -8,6 +8,7 @@ namespace ContainerVervoer.Classes
         public int Width { get; set; }
         private List<Row> _rows = new List<Row>();
         public ReadOnlyCollection<Row> Rows => _rows.AsReadOnly();
+        private readonly int MaxBalanceDifference = 20;
 
         public Ship(int length, int width)
         {
@@ -29,7 +30,7 @@ namespace ContainerVervoer.Classes
                 }
             }
             catch (ArgumentException ex)
-            { // Log de uitzondering of doe iets anders met de foutmelding
+            { 
                 Console.WriteLine(ex.Message); throw; // Hergooi de uitzondering na logging, zodat de aanroeper het ook weet
             }
         }
@@ -104,7 +105,7 @@ namespace ContainerVervoer.Classes
             int totalWeight = CalculateTotalWeight();
             double difference = Math.Abs(CalculateLeftWeight() - CalculateRightWeight()) / (double)totalWeight * 100; // berekent het % verschil van links & rechts
 
-            if (difference > 20)
+            if (difference > MaxBalanceDifference)
             {
                 return false;
             }
