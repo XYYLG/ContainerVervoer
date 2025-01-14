@@ -126,9 +126,9 @@ namespace ContainerVervoerTests
             Ship ship = new Ship(3, 3);
 
             // Voeg containers toe aan rijen
-            ship.Rows[0].Stacks[0].Containers.Add(new Container(10, false, false));
-            ship.Rows[1].Stacks[0].Containers.Add(new Container(20, false, false));
-            ship.Rows[2].Stacks[0].Containers.Add(new Container(30, false, false));
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(10, false, false));
+            ship.Rows[1].Stacks[0].TryToAddContainer(new Container(20, false, false));
+            ship.Rows[2].Stacks[0].TryToAddContainer(new Container(30, false, false));
 
             // Act
             int totalWeight = ship.CalculateTotalWeight();
@@ -144,11 +144,11 @@ namespace ContainerVervoerTests
             Ship ship = new Ship(3, 3);
 
             // Voeg containers toe aan rijen
-            ship.Rows[0].Stacks[0].Containers.Add(new Container(10, false, false));
-            ship.Rows[0].Stacks[0].Containers.Add(new Container(15, false, false));
-            ship.Rows[1].Stacks[0].Containers.Add(new Container(20, false, false));
-            ship.Rows[2].Stacks[0].Containers.Add(new Container(5, false, false));
-            ship.Rows[2].Stacks[0].Containers.Add(new Container(10, false, false));
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(10, false, false));
+            ship.Rows[0].Stacks[0].TryToAddContainer(new Container(15, false, false));
+            ship.Rows[1].Stacks[0].TryToAddContainer(new Container(20, false, false));
+            ship.Rows[2].Stacks[0].TryToAddContainer(new Container(5, false, false));
+            ship.Rows[2].Stacks[0].TryToAddContainer(new Container(10, false, false));
 
             // Act
             int totalWeight = ship.CalculateTotalWeight();
@@ -230,7 +230,7 @@ namespace ContainerVervoerTests
             }
 
             // Assert & Act
-           Assert.IsTrue(ship.IsProperlyLoaded());
+            Assert.IsTrue(ship.IsProperlyLoaded());
 
         }
 
@@ -290,7 +290,7 @@ namespace ContainerVervoerTests
             ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
 
             // Assert & Act
-           Assert.IsTrue(ship.IsBalanced());
+            Assert.IsTrue(ship.IsBalanced());
         }
 
         [TestMethod]

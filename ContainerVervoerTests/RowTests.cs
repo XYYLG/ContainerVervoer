@@ -71,19 +71,11 @@ namespace ContainerVervoerTests
         public void CalculateTotalWeight_ShouldReturnCorrectWeight_WhenStacksHaveWeights()
         {
             // Arrange
-            Stack stack1 = new Stack(false);
-            Stack stack2 = new Stack(false);
-            Stack stack3 = new Stack(false);
+            Row row = new Row(3);
 
-            stack1.Containers.Add(new Container(10, false, false));
-            stack2.Containers.Add(new Container(20, false, false));
-            stack3.Containers.Add(new Container(30, false, false));
-
-            Row row = new Row(0); // Start met een lege rij
-
-            row.Stacks.Add(stack1);
-            row.Stacks.Add(stack2);
-            row.Stacks.Add(stack3);
+            row.Stacks[0].TryToAddContainer(new Container(10, false, false));
+            row.Stacks[1].TryToAddContainer(new Container(20, false, false));
+            row.Stacks[2].TryToAddContainer(new Container(30, false, false));
 
             // Act
             int totalWeight = row.CalculateTotalWeight();
@@ -97,10 +89,8 @@ namespace ContainerVervoerTests
         public void CalculateTotalWeight_ShouldReturnWeightOfSingleStack()
         {
             // Arrange
-            Stack stack = new Stack(false);
-            stack.Containers.Add(new Container(25, false, false));
-
-            Row row = new Row(0); row.Stacks.Add(stack);
+            Row row = new Row(1);
+            row.Stacks[0].TryToAddContainer(new Container(25, false, false));
 
             // Act
             int totalWeight = row.CalculateTotalWeight();
@@ -162,7 +152,7 @@ namespace ContainerVervoerTests
             for (int i = 0; i < 5; i++)
             {
                 Container container = new Container(Container.MaxWeight, false, false); // Maak een container met een gewicht
-                row.Stacks[0].Containers.Add(container);
+                row.Stacks[0].TryToAddContainer(container);
             }
 
             Container newContainer = new Container(10, false, false);
@@ -182,10 +172,10 @@ namespace ContainerVervoerTests
             Container container = new Container(10, true, false);
 
             // Voeg containers toe aan de eerste en derde stapel zodat ze niet bereikbaar zijn
-            row.Stacks[0].Containers.Add(new Container(10, true, false));
-            row.Stacks[1].Containers.Add(new Container(10, true, false));
-            row.Stacks[3].Containers.Add(new Container(10, true, false));
-            row.Stacks[4].Containers.Add(new Container(10, true, false));
+            row.Stacks[0].TryToAddContainer(new Container(10, true, false));
+            row.Stacks[1].TryToAddContainer(new Container(10, true, false));
+            row.Stacks[3].TryToAddContainer(new Container(10, true, false));
+            row.Stacks[4].TryToAddContainer(new Container(10, true, false));
 
             // Act
             bool result = row.TryToAddContainer(container);
@@ -203,8 +193,8 @@ namespace ContainerVervoerTests
             Container container = new Container(10, true, false);
 
             // Voeg containers toe aan de eerste en derde stapel zodat de tweede niet bereikbaar zijn
-            row.Stacks[0].Containers.Add(new Container(10, true, false));
-            row.Stacks[2].Containers.Add(new Container(10, true, false));
+            row.Stacks[0].TryToAddContainer(new Container(10, true, false));
+            row.Stacks[2].TryToAddContainer(new Container(10, true, false));
 
             // Act
             bool result = row.TryToAddContainer(container);
@@ -247,7 +237,7 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Row row = new Row(3);
-            row.Stacks[1].Containers.Add(new Container(10, false, false)); // Voeg een gewone container toe
+            row.Stacks[1].TryToAddContainer(new Container(10, false, false)); // Voeg een gewone container toe
 
             // Act
             bool result = row.IsStackReachable(1);
@@ -261,10 +251,10 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Row row = new Row(3);
-            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe
-            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg nog een container toe om de hoogte te verhogen
-            row.Stacks[0].Containers.Add(new Container(5, false, false)); // Voeg een gewone container toe aan de vorige stapel
-            row.Stacks[2].Containers.Add(new Container(5, false, false)); // Voeg een gewone container toe aan de volgende stapel
+            row.Stacks[1].TryToAddContainer(new Container(10, false, false)); // Voeg een waardevolle container toe
+            row.Stacks[1].TryToAddContainer(new Container(10, true, false)); // Voeg nog een container toe om de hoogte te verhogen
+            row.Stacks[0].TryToAddContainer(new Container(5, false, false)); // Voeg een gewone container toe aan de vorige stapel
+            row.Stacks[2].TryToAddContainer(new Container(5, false, false)); // Voeg een gewone container toe aan de volgende stapel
 
             // Act
             bool result = row.IsStackReachable(1);
@@ -278,10 +268,10 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Row row = new Row(3);
-            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe
-            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe
-            row.Stacks[0].Containers.Add(new Container(20, false, false)); // Voeg een container toe aan de vorige stapel om de hoogte te verhogen
-            row.Stacks[2].Containers.Add(new Container(5, false, false));  // Voeg een gewone container toe aan de volgende stapel
+            row.Stacks[0].TryToAddContainer(new Container(20, false, false)); // Voeg een container toe aan de vorige stapel om de hoogte te verhogen
+            row.Stacks[1].TryToAddContainer(new Container(10, false, false)); // Voeg een normale container toe
+            row.Stacks[1].TryToAddContainer (new Container(10, true, false)); // Voeg een waardevolle container toe
+            row.Stacks[2].TryToAddContainer (new Container(10, true, false)); // Voeg een waardevolle container toe
 
             // Act
             bool result = row.IsStackReachable(1);
@@ -308,9 +298,9 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Row row = new Row(5);
-            row.Stacks[0].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
-            row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
-            row.Stacks[2].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
+            row.Stacks[0].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
+            row.Stacks[1].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
+            row.Stacks[2].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
 
             // Act
             bool result = row.IsPreviousAndNextReachable(2);
@@ -324,9 +314,9 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Row row = new Row(5);
-            row.Stacks[2].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
-            row.Stacks[3].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
-            row.Stacks[4].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
+            row.Stacks[2].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
+            row.Stacks[3].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
+            row.Stacks[4].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
 
             // Act
             bool result = row.IsPreviousAndNextReachable(2);

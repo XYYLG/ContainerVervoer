@@ -1,18 +1,21 @@
 ﻿using System.Reflection;
 using System;
+using System.Collections.ObjectModel;
 
 namespace ContainerVervoer.Classes
 {
     public class Row
     {
-        public List<Stack> Stacks = new List<Stack>();
+        private List<Stack> _stacks = new List<Stack>();
+        public ReadOnlyCollection<Stack> Stacks => _stacks.AsReadOnly();
+
 
         public Row(int length)
         {
             for (int j = 0; j < length; j++)
             {
                 bool isCooled = j == 0; //kijkt of hij op de eerste plek in de rij is
-                Stacks.Add(new Stack(isCooled));
+                _stacks.Add(new Stack(isCooled));
             }
         }
 

@@ -51,7 +51,7 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container existingContainer = new Container(10, false, false);
-            stack.Containers.Add(existingContainer);
+            stack.TryToAddContainer(existingContainer);
             Container newContainer = new Container(5, false, false);
 
             // Act
@@ -67,11 +67,11 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container existingContainer = new Container(30, false, false);
-            stack.Containers.Add(existingContainer);
-            stack.Containers.Add(existingContainer);
-            stack.Containers.Add(existingContainer);
-            stack.Containers.Add(existingContainer);
-            stack.Containers.Add(existingContainer);
+            stack.TryToAddContainer(existingContainer);
+            stack.TryToAddContainer(existingContainer);
+            stack.TryToAddContainer(existingContainer);
+            stack.TryToAddContainer(existingContainer);
+            stack.TryToAddContainer(existingContainer);
             Container newContainer = new Container(10, false, false); // net boven de capaciteit
 
             // Act
@@ -87,7 +87,7 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container existingContainer = new Container(10, false, false);
-            stack.Containers.Add(existingContainer);
+            stack.TryToAddContainer(existingContainer);
             int stackCapacity = 30; // Bijvoorbeeld capaciteit van 30
             Container newContainer = new Container(stackCapacity - 10, false, false); // exact gelijk aan de capaciteit
 
@@ -117,7 +117,7 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container container = new Container(10, false, false);
-            stack.Containers.Add(container);
+            stack.TryToAddContainer(container);
 
             // Act
             int totalWeight = stack.CalculateTotalWeight();
@@ -133,8 +133,8 @@ namespace ContainerVervoerTests
             Stack stack = new Stack(false);
             Container container1 = new Container(10, false, false);
             Container container2 = new Container(20, false, false);
-            stack.Containers.Add(container1);
-            stack.Containers.Add(container2);
+            stack.TryToAddContainer(container1);
+            stack.TryToAddContainer(container2);
 
             // Act
             int totalWeight = stack.CalculateTotalWeight();
@@ -151,9 +151,9 @@ namespace ContainerVervoerTests
             Container container1 = new Container(5, false, false);
             Container container2 = new Container(15, false, false);
             Container container3 = new Container(25, false, false);
-            stack.Containers.Add(container1);
-            stack.Containers.Add(container2);
-            stack.Containers.Add(container3);
+            stack.TryToAddContainer(container1);
+            stack.TryToAddContainer(container2);
+            stack.TryToAddContainer(container3);
 
             // Act
             int totalWeight = stack.CalculateTotalWeight();
@@ -182,7 +182,7 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container valuableContainer = new Container(10, true, false);
-            stack.Containers.Add(valuableContainer); // Voeg waardevolle container toe
+            stack.TryToAddContainer(valuableContainer); // Voeg waardevolle container toe
             Container newContainer = new Container(5, false, false);
 
             // Act
@@ -217,11 +217,11 @@ namespace ContainerVervoerTests
             Container existingContainer3 = new Container(25, false, false);
             Container existingContainer4 = new Container(25, false, false);
             Container existingContainer5 = new Container(25, false, false);
-            stack.Containers.Add(existingContainer);
-            stack.Containers.Add(existingContainer2);
-            stack.Containers.Add(existingContainer3);
-            stack.Containers.Add(existingContainer4);
-            stack.Containers.Add(existingContainer5);
+            stack.TryToAddContainer(existingContainer);
+            stack.TryToAddContainer(existingContainer2);
+            stack.TryToAddContainer(existingContainer3);
+            stack.TryToAddContainer(existingContainer4);
+            stack.TryToAddContainer(existingContainer5);
             Container newContainer = new Container(25, false, false); // Net boven de capaciteit (120-10+1=111)
 
             // Act
@@ -238,7 +238,7 @@ namespace ContainerVervoerTests
             // Arrange
             Stack stack = new Stack(false);
             Container container = new Container(10, false, false);
-            stack.Containers.Add(container);
+            stack.TryToAddContainer(container);
 
             // Act
             bool result = stack.TryToRemoveContainer(container);
@@ -283,8 +283,8 @@ namespace ContainerVervoerTests
             Stack stack = new Stack(false);
             Container container1 = new Container(10, false, false);
             Container container2 = new Container(20, false, false);
-            stack.Containers.Add(container1);
-            stack.Containers.Add(container2);
+            stack.TryToAddContainer(container1);
+            stack.TryToAddContainer(container2);
 
             // Act
             bool result = stack.TryToRemoveContainer(container1);
