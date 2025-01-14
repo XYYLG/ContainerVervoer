@@ -344,7 +344,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateRightWeight_ShouldReturnCorrectWeight_WhenRightSideHasDifferentWeights()
+        public void CalculateRightWeight_ShouldReturnCorrectWeights_WhenRightSideHasDifferentWeights()
         {
             // Arrange
             Ship ship = new Ship(2, 2);
@@ -353,9 +353,13 @@ namespace ContainerVervoerTests
 
             // Act
             int rightWeight = ship.CalculateRightWeight();
+            int leftWeight = ship.CalculateLeftWeight();
+            int middleWeight = ship.CalculateMiddleWeight();
 
             // Assert
             Assert.AreEqual(40, rightWeight, "Het gewicht aan de rechterkant moet correct berekend worden.");
+            Assert.AreEqual(0, leftWeight, "Het gewicht aan de linkerkant moet 0 zijn wanneer er geen containers zijn.");
+            Assert.AreEqual(0, middleWeight, "Het gewicht van de middelste rijen moet 0 zijn wanneer er geen containers zijn.");
         }
 
         [TestMethod]
@@ -387,7 +391,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateMiddleWeight_ShouldReturnCorrectWeight_WhenWidthIsOddAndMiddleRowIsNotEmpty()
+        public void CalculateMiddleWeight_ShouldReturnCorrectWeights_WhenWidthIsOddAndMiddleRowIsNotEmpty()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -395,9 +399,13 @@ namespace ContainerVervoerTests
 
             // Act
             int middleWeight = ship.CalculateMiddleWeight();
+            int leftWeight = ship.CalculateLeftWeight();
+            int rightWeight = ship.CalculateRightWeight();
 
             // Assert
             Assert.AreEqual(20, middleWeight, "Het gewicht van de middelste rij moet correct berekend worden.");
+            Assert.AreEqual(0, leftWeight, "Het gewicht aan de linkerkant moet 0 zijn wanneer er geen containers zijn.");
+            Assert.AreEqual(0, rightWeight, "Het gewicht aan de rechterkant moet 0 zijn wanneer er geen containers zijn.");
         }
 
         [TestMethod]
