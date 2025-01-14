@@ -55,7 +55,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnZero_WhenStacksAreEmpty()
+        public void CalculateTotalWeight_ShouldReturnZero_WhenStacksAreEmpty()
         {
             // Arrange
             Row row = new Row(3);
@@ -68,7 +68,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnCorrectWeight_WhenStacksHaveWeights()
+        public void CalculateTotalWeight_ShouldReturnCorrectWeight_WhenStacksHaveWeights()
         {
             // Arrange
             Stack stack1 = new Stack(false);
@@ -94,7 +94,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnWeightOfSingleStack()
+        public void CalculateTotalWeight_ShouldReturnWeightOfSingleStack()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -110,7 +110,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnZero_WhenNoStacksPresent()
+        public void CalculateTotalWeight_ShouldReturnZero_WhenNoStacksPresent()
         {
             // Arrange
             Row row = new Row(0);
@@ -123,7 +123,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnTrue_WhenContainerAddedToNonValuableStack()
+        public void TryToAddContainer_ShouldReturnTrue_WhenContainerAddedToNonValuableStack()
         {
             // Arrange
             Row row = new Row(3);
@@ -138,7 +138,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnTrue_WhenValuableContainerAdded()
+        public void TryToAddContainer_ShouldReturnTrue_WhenValuableContainerAdded()
         {
             // Arrange
             Row row = new Row(3);
@@ -153,29 +153,29 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenRowIsFull()
-        { 
+        public void TryToAddContainer_ShouldReturnFalse_WhenRowIsFull()
+        {
             // Arrange
-            Row row = new Row(1); 
-            
+            Row row = new Row(1);
+
             // Voeg containers toe totdat de rij vol is
             for (int i = 0; i < 5; i++)
             {
                 Container container = new Container(Container.MaxWeight, false, false); // Maak een container met een gewicht
                 row.Stacks[0].Containers.Add(container);
-            } 
+            }
 
-            Container newContainer = new Container(10, false, false);   
-            
+            Container newContainer = new Container(10, false, false);
+
             // Act
-            bool result = row.TryToAddContainer(newContainer); 
-            
+            bool result = row.TryToAddContainer(newContainer);
+
             // Assert
             Assert.IsFalse(result, "Er zou geen container toegevoegd moeten worden als de rij vol is");
         }
 
-            [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenPreviousAndNextNotReachable()
+        [TestMethod]
+        public void TryToAddContainer_ShouldReturnFalse_WhenPreviousAndNextNotReachable()
         {
             // Arrange
             Row row = new Row(5);
@@ -195,10 +195,8 @@ namespace ContainerVervoerTests
             CollectionAssert.DoesNotContain(row.Stacks[1].Containers, container, "Container should not be added to stack 1.");
         }
 
-
-
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenValuableContainerAndStackNotReachable()
+        public void TryToAddContainer_ShouldReturnFalse_WhenValuableContainerAndStackNotReachable()
         {
             // Arrange
             Row row = new Row(3);
@@ -217,7 +215,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenStackIsFirstOrLast()
+        public void IsStackReachable_ShouldReturnTrue_WhenStackIsFirstOrLast()
         {
             // Arrange
             Row row = new Row(3);
@@ -232,7 +230,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenCurrentHeightIsZero()
+        public void IsStackReachable_ShouldReturnTrue_WhenCurrentHeightIsZero()
         {
             // Arrange
             Row row = new Row(3);
@@ -245,7 +243,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenStackHasNoValuableContainer()
+        public void IsStackReachable_ShouldReturnTrue_WhenStackHasNoValuableContainer()
         {
             // Arrange
             Row row = new Row(3);
@@ -259,7 +257,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenCurrentHeightGreaterThanNextAndPreviousHeight()
+        public void IsStackReachable_ShouldReturnTrue_WhenCurrentHeightGreaterThanNextAndPreviousHeight()
         {
             // Arrange
             Row row = new Row(3);
@@ -282,9 +280,8 @@ namespace ContainerVervoerTests
             Assert.IsTrue(result, "Stapel met grotere hoogte dan de volgende en vorige stapel moet niet bereikbaar zijn.");
         }
 
-
         [TestMethod]
-        public void IsStackReachableMethodTest_ShouldReturnTrue_WhenCurrentHeightMoreThanNextOrPreviousHeight()
+        public void IsStackReachable_ShouldReturnTrue_WhenCurrentHeightMoreThanNextOrPreviousHeight()
         {
             // Arrange
             Row row = new Row(3);
@@ -301,7 +298,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenBothAreReachable()
+        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenBothAreReachable()
         {
             // Arrange
             Row row = new Row(3);
@@ -314,14 +311,14 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachableMethodTest_ShouldReturnFalse_WhenPreviousIsNotReachable()
+        public void IsPreviousAndNextReachable_ShouldReturnFalse_WhenPreviousIsNotReachable()
         {
             // Arrange
             Row row = new Row(5);
             row.Stacks[0].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
             row.Stacks[1].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
             row.Stacks[2].Containers.Add(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
-           
+
             // Act
             bool result = row.IsPreviousAndNextReachable(2);
 
@@ -330,7 +327,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachableMethodTest_ShouldReturnFalse_WhenNextIsNotReachable()
+        public void IsPreviousAndNextReachable_ShouldReturnFalse_WhenNextIsNotReachable()
         {
             // Arrange
             Row row = new Row(5);
@@ -346,7 +343,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenCheckingFirstStack()
+        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenCheckingFirstStack()
         {
             // Arrange
             Row row = new Row(3);
@@ -359,7 +356,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachableMethodTest_ShouldReturnTrue_WhenCheckingLastStack()
+        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenCheckingLastStack()
         {
             // Arrange
             Row row = new Row(3);

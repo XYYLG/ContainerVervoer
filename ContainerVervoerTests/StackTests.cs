@@ -32,7 +32,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CanSupportWeightMethodTest_ShouldReturnTrue_WhenStackIsEmpty()
+        public void CanSupportWeight_ShouldReturnTrue_WhenStackIsEmpty()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -46,7 +46,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CanSupportWeightMethodTest_ShouldReturnTrue_WhenAddingContainerKeepsWeightBelowCapacity()
+        public void CanSupportWeight_ShouldReturnTrue_WhenAddingContainerKeepsWeightBelowCapacity()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -82,7 +82,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CanSupportWeightMethodTest_ShouldReturnTrue_WhenAddingContainerIsExactlyAtCapacity()
+        public void CanSupportWeight_ShouldReturnTrue_WhenAddingContainerIsExactlyAtCapacity()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -99,7 +99,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnZero_WhenStackIsEmpty()
+        public void CalculateTotalWeight_ShouldReturnZero_WhenStackIsEmpty()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -112,7 +112,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnContainerWeight_WhenStackHasOneContainer()
+        public void CalculateTotalWeight_ShouldReturnContainerWeight_WhenStackHasOneContainer()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -127,7 +127,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnSumOfContainerWeights_WhenStackHasMultipleContainers()
+        public void CalculateTotalWeight_ShouldReturnSumOfContainerWeights_WhenStackHasMultipleContainers()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -163,7 +163,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenContainerNeedsCoolingAndStackIsNotCooled()
+        public void TryToAddContainer_ShouldReturnFalse_WhenContainerNeedsCoolingAndStackIsNotCooled()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -177,7 +177,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenStackHasValuableContainer()
+        public void TryToAddContainer_ShouldReturnFalse_WhenStackHasValuableContainer()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -193,7 +193,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnTrue_WhenWeightIsSupported()
+        public void TryToAddContainer_ShouldReturnTrue_WhenWeightIsSupported()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -208,7 +208,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldReturnFalse_WhenAddingContainerExceedsCapacity()
+        public void TryToAddContainer_ShouldReturnFalse_WhenAddingContainerExceedsCapacity()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -233,7 +233,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToRemoveContainerMethodTest_ShouldReturnTrue_WhenContainerIsRemoved()
+        public void TryToRemoveContainer_ShouldReturnTrue_WhenContainerIsRemoved()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -249,7 +249,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToRemoveContainerMethodTest_ShouldReturnFalse_WhenContainerIsNotInStack()
+        public void TryToRemoveContainer_ShouldReturnFalse_WhenContainerIsNotInStack()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -263,7 +263,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToRemoveContainerMethodTest_ShouldReturnFalse_WhenStackIsEmpty()
+        public void TryToRemoveContainer_ShouldReturnFalse_WhenStackIsEmpty()
         {
             // Arrange
             Stack stack = new Stack(false);
@@ -277,7 +277,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToRemoveContainerMethodTest_ShouldReturnTrue_WhenOneContainerIsRemovedFromMultipleContainers()
+        public void TryToRemoveContainer_ShouldReturnTrue_WhenOneContainerIsRemovedFromMultipleContainers()
         {
             // Arrange
             Stack stack = new Stack(false);

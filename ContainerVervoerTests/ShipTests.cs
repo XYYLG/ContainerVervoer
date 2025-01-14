@@ -73,7 +73,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnZero_WhenShipHasNoRows()
+        public void CalculateTotalWeight_ShouldReturnZero_WhenShipHasNoRows()
         {
             // Arrange
             Ship ship = new Ship(0, 0);
@@ -86,7 +86,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnZero_WhenAllRowsAreEmpty()
+        public void CalculateTotalWeight_ShouldReturnZero_WhenAllRowsAreEmpty()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -99,7 +99,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnSumOfAllContainerWeights_WhenShipHasContainersInRows()
+        public void CalculateTotalWeight_ShouldReturnSumOfAllContainerWeights_WhenShipHasContainersInRows()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -117,7 +117,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateTotalWeightMethodTest_ShouldReturnSumOfAllContainerWeightsInAllRows()
+        public void CalculateTotalWeight_ShouldReturnSumOfAllContainerWeightsInAllRows()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -137,7 +137,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldAddToMiddleRow_WhenWidthIsOddAndMiddleRowHasMinWeight()
+        public void TryToAddContainer_ShouldAddToMiddleRow_WhenWidthIsOddAndMiddleRowHasMinWeight()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -152,7 +152,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldAddToLeftRowWithMinWeight()
+        public void TryToAddContainer_ShouldAddToLeftRowWithMinWeight()
         {
             // Arrange
             Ship ship = new Ship(1, 2);
@@ -168,7 +168,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void TryToAddContainerMethodTest_ShouldAddToRightRowWithMinWeight()
+        public void TryToAddContainer_ShouldAddToRightRowWithMinWeight()
         {
             // Arrange
             Ship ship = new Ship(1, 2);
@@ -184,7 +184,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
+        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsWithinLimits()
         {
             // Arrange
             Ship ship = new Ship(1, 1);
@@ -211,7 +211,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsExactlyOnLimit()
+        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsExactlyOnLimit()
         {
             // Arrange
             Ship ship = new Ship(1, 2);
@@ -236,11 +236,8 @@ namespace ContainerVervoerTests
 
         }
 
-
-
-
         [TestMethod]
-        public void IsProperlyLoadedMethodTest_ShouldNotThrowException_WhenTotalWeightIsFarAboveLimit()
+        public void IsProperlyLoaded_ShouldNotThrowException_WhenTotalWeightIsFarAboveLimit()
         {
             // Arrange
             Ship ship = new Ship(1, 1);
@@ -267,7 +264,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsBalancedMethodTest_ShouldNotThrowException_WhenWeightIsEvenlyDistributed()
+        public void IsBalanced_ShouldNotThrowException_WhenWeightIsEvenlyDistributed()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -278,19 +275,8 @@ namespace ContainerVervoerTests
             ship.Rows[0].Stacks[0].TryToAddContainer(new Container(halfWeight, false, false));
             ship.Rows[2].Stacks[2].TryToAddContainer(new Container(halfWeight, false, false));
 
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsBalanced();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het gewicht evenwichtig is verdeeld.");
+            // Assert & Act
+            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
         }
 
         [TestMethod]
@@ -299,23 +285,12 @@ namespace ContainerVervoerTests
             // Arrange
             Ship ship = new Ship(3, 3);
 
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsBalanced();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht nul is.");
+            // Assert & Act
+            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
         }
 
         [TestMethod]
-        public void IsBalancedMethodTest_ShouldNotThrowException_WhenWeightDifferenceIsExactlyTwentyPercent()
+        public void IsBalanced_ShouldNotThrowException_WhenWeightDifferenceIsExactlyTwentyPercent()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -327,23 +302,12 @@ namespace ContainerVervoerTests
             ship.Rows[0].Stacks[0].TryToAddContainer(new Container(leftWeight, false, false));
             ship.Rows[2].Stacks[2].TryToAddContainer(new Container(rightWeight, false, false));
 
-            // Act
-            Exception ex = null;
-            try
-            {
-                ship.IsBalanced();
-            }
-            catch (Exception e)
-            {
-                ex = e;
-            }
-
-            // Assert
-            Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het gewichtsverschil precies 20% is.");
+            // Assert & Act
+            Assert.ThrowsException<Exception>(() => ship.IsBalanced());
         }
 
         [TestMethod]
-        public void CalculateLeftWeightMethodTest_ShouldReturnCorrectWeights_WhenLeftSideHasDifferentWeights()
+        public void CalculateLeftWeight_ShouldReturnCorrectWeights_WhenLeftSideHasDifferentWeights()
         {
             // Arrange
             Ship ship = new Ship(4, 2);
@@ -363,7 +327,7 @@ namespace ContainerVervoerTests
 
 
         [TestMethod]
-        public void CalculateLeftWeightMethodTest_ShouldReturnZero_WhenLeftSideIsEmpty()
+        public void CalculateLeftWeight_ShouldReturnZero_WhenLeftSideIsEmpty()
         {
             // Arrange
             Ship ship = new Ship(4, 2);
@@ -376,7 +340,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateLeftWeightMethodTest_ShouldReturnSumOfWeights_WhenAllRowsAreFilled()
+        public void CalculateLeftWeight_ShouldReturnSumOfWeights_WhenAllRowsAreFilled()
         {
             // Arrange
             Ship ship = new Ship(4, 4);
@@ -393,7 +357,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateRightWeightMethodTest_ShouldReturnCorrectWeight_WhenRightSideHasDifferentWeights()
+        public void CalculateRightWeight_ShouldReturnCorrectWeight_WhenRightSideHasDifferentWeights()
         {
             // Arrange
             Ship ship = new Ship(2, 2);
@@ -408,7 +372,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateRightWeightMethodTest_ShouldReturnZero_WhenRightSideIsEmpty()
+        public void CalculateRightWeight_ShouldReturnZero_WhenRightSideIsEmpty()
         {
             // Arrange
             Ship ship = new Ship(4, 2);
@@ -421,7 +385,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateRightWeightMethodTest_ShouldReturnSumOfWeights_WhenAllRowsAreFilled()
+        public void CalculateRightWeight_ShouldReturnSumOfWeights_WhenAllRowsAreFilled()
         {
             // Arrange
             Ship ship = new Ship(2, 2);
@@ -436,7 +400,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateMiddleWeightMethodTest_ShouldReturnCorrectWeight_WhenWidthIsOddAndMiddleRowIsNotEmpty()
+        public void CalculateMiddleWeight_ShouldReturnCorrectWeight_WhenWidthIsOddAndMiddleRowIsNotEmpty()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -450,7 +414,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateMiddleWeightMethodTest_ShouldReturnCorrectWeight_WhenWidthIsEvenAndMiddleRowsAreNotEmpty()
+        public void CalculateMiddleWeight_ShouldReturnCorrectWeight_WhenWidthIsEvenAndMiddleRowsAreNotEmpty()
         {
             // Arrange
             Ship ship = new Ship(4, 4);
@@ -465,7 +429,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateMiddleWeightMethodTest_ShouldReturnZero_WhenMiddleRowIsEmpty()
+        public void CalculateMiddleWeight_ShouldReturnZero_WhenMiddleRowIsEmpty()
         {
             // Arrange
             Ship ship = new Ship(3, 3);
@@ -478,7 +442,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void CalculateMiddleWeightMethodTest_ShouldReturnWeightOfSingleRow_WhenShipHasOneRow()
+        public void CalculateMiddleWeight_ShouldReturnWeightOfSingleRow_WhenShipHasOneRow()
         {
             // Arrange
             Ship ship = new Ship(1, 3);
