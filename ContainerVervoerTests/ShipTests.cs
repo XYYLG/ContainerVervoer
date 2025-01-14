@@ -325,8 +325,6 @@ namespace ContainerVervoerTests
             Assert.IsNull(ex, "De methode mag geen uitzondering gooien wanneer het totale gewicht ver boven de limiet is.");
         }
 
-
-
         [TestMethod]
         public void IsBalancedMethodTest_ShouldNotThrowException_WhenWeightIsEvenlyDistributed()
         {
@@ -606,6 +604,53 @@ namespace ContainerVervoerTests
             // Assert
             Assert.AreEqual(10, middleWeight, "Het gewicht van de middelste rij moet het gewicht van de enige rij zijn.");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

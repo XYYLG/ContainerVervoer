@@ -8,7 +8,7 @@ Ship shipOne = new Ship(length, width);
 
 List<Container> containers = new List<Container>();
 
-containers.AddRange(ContainerFactory.CreateContainers(20, false, true, Container.MaxWeight));  // koeling containers
+containers.AddRange(ContainerFactory.CreateContainers(16, false, true, Container.MaxWeight));  // koeling containers
 containers.AddRange(ContainerFactory.CreateContainers(5, true, true, Container.MaxWeight));  // koeling & waardevolle containers
 containers.AddRange(ContainerFactory.CreateContainers(150, false, false, Container.MaxWeight)); // normale containers
 containers.AddRange(ContainerFactory.CreateContainers(30, true, false, Container.MaxWeight)); // waardevolle containers

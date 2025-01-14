@@ -79,7 +79,7 @@ namespace ContainerVervoer.Classes
             int nextHeight = Stacks[index + 1].Containers.Count;
             int previousHeight = Stacks[index - 1].Containers.Count;
 
-            return currentHeight <= nextHeight && currentHeight <= previousHeight;
+            return currentHeight > nextHeight || currentHeight > previousHeight;
         }
 
 
