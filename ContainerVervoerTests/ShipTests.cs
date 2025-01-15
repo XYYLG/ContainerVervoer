@@ -41,6 +41,18 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
+        public void ShipConstructorTest_ShouldThrowException_WhenLengthAndWidthAreLessThanZero()
+        {
+            // Arrange
+            int length = -3;
+            int width = -3;
+
+            // Act & Assert
+            Exception ex = Assert.ThrowsException<Exception>(() => new Ship(length, width));
+            Assert.AreEqual("Lengte moet groter dan 0 zijn", ex.Message);
+        }
+
+        [TestMethod]
         public void ShipConstructorTest_ShouldSetLengthAndWidth()
         {
             // Arrange

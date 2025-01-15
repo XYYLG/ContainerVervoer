@@ -39,7 +39,7 @@ namespace ContainerVervoer.Classes
                 {
                     if (!container.IsValuable)
                     {
-                        if (IsPreviousAndNextReachable(index))
+                        if (IsPreviousAndNextContainerReachable(index))
                         {
                             return true;
                         }
@@ -47,7 +47,7 @@ namespace ContainerVervoer.Classes
                     }
                     else
                     {
-                        if (IsStackReachable(index) && IsPreviousAndNextReachable(index))
+                        if (IsStackReachable(index) && IsPreviousAndNextContainerReachable(index))
                         {
                             return true;
                         }
@@ -84,7 +84,7 @@ namespace ContainerVervoer.Classes
             return currentHeight > nextHeight || currentHeight > previousHeight;
         }
 
-        public bool IsPreviousAndNextReachable(int index)
+        public bool IsPreviousAndNextContainerReachable(int index)
         {
             bool previousIsReachable = true;
             bool nextIsReachable = true;

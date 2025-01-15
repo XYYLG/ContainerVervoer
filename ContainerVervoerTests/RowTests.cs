@@ -287,7 +287,7 @@ namespace ContainerVervoerTests
             Row row = new Row(3);
 
             // Act
-            bool result = row.IsPreviousAndNextReachable(1);
+            bool result = row.IsPreviousAndNextContainerReachable(1);
 
             // Assert
             Assert.IsTrue(result, "Zowel de vorige als de volgende stapel moeten bereikbaar zijn.");
@@ -303,7 +303,7 @@ namespace ContainerVervoerTests
             row.Stacks[2].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de vorige stapel
 
             // Act
-            bool result = row.IsPreviousAndNextReachable(2);
+            bool result = row.IsPreviousAndNextContainerReachable(2);
 
             // Assert
             Assert.IsFalse(result, "De vorige stapel is niet bereikbaar.");
@@ -319,33 +319,33 @@ namespace ContainerVervoerTests
             row.Stacks[4].TryToAddContainer(new Container(10, true, false)); // Voeg een waardevolle container toe aan de volgende stapel
 
             // Act
-            bool result = row.IsPreviousAndNextReachable(2);
+            bool result = row.IsPreviousAndNextContainerReachable(2);
 
             // Assert
             Assert.IsFalse(result, "De volgende stapel is niet bereikbaar.");
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenCheckingFirstStack()
+        public void IsPreviousAndNextContainerReachable_ShouldReturnTrue_WhenCheckingFirstStack()
         {
             // Arrange
             Row row = new Row(3);
 
             // Act
-            bool result = row.IsPreviousAndNextReachable(0);
+            bool result = row.IsPreviousAndNextContainerReachable(0);
 
             // Assert
             Assert.IsTrue(result, "De eerste stapel moet bereikbaar zijn omdat er geen vorige stapel is.");
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenCheckingLastStack()
+        public void IsPreviousAndNextContainerReachable_ShouldReturnTrue_WhenCheckingLastStack()
         {
             // Arrange
             Row row = new Row(3);
 
             // Act
-            bool result = row.IsPreviousAndNextReachable(2);
+            bool result = row.IsPreviousAndNextContainerReachable(2);
 
             // Assert
             Assert.IsTrue(result, "De laatste stapel moet bereikbaar zijn omdat er geen volgende stapel is.");
