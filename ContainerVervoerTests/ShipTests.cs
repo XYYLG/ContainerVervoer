@@ -12,8 +12,8 @@ namespace ContainerVervoerTests
             int width = 5;
 
             // Act & Assert
-            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
-            Assert.AreEqual("Length moet groter dan 0 zijn", ex.Message);
+            Exception ex = Assert.ThrowsException<Exception>(() => new Ship(length, width));
+            Assert.AreEqual("Lengte moet groter dan 0 zijn", ex.Message);
         }
 
         [TestMethod]
@@ -24,8 +24,8 @@ namespace ContainerVervoerTests
             int width = 0;
 
             // Act & Assert
-            ArgumentException ex = Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
-            Assert.AreEqual("Width moet groter dan 0 zijn", ex.Message);
+            Exception ex = Assert.ThrowsException<Exception>(() => new Ship(length, width));
+            Assert.AreEqual("Breedte moet groter dan 0 zijn", ex.Message);
         }
 
         [TestMethod]
@@ -36,7 +36,8 @@ namespace ContainerVervoerTests
             int width = 0;
 
             // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Ship(length, width));
+            Exception ex = Assert.ThrowsException<Exception>(() => new Ship(length, width));
+            Assert.AreEqual("Lengte moet groter dan 0 zijn", ex.Message);
         }
 
         [TestMethod]

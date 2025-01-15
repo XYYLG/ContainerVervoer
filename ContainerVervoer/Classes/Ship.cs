@@ -16,11 +16,11 @@ namespace ContainerVervoer.Classes
             {
                 if (length <= 0)
                 {
-                    throw new ArgumentException("Length moet groter dan 0 zijn");
+                    throw new Exception("Lengte moet groter dan 0 zijn");
                 }
                 if (width <= 0)
                 {
-                    throw new ArgumentException("Width moet groter dan 0 zijn");
+                    throw new Exception ("Breedte moet groter dan 0 zijn");
                 }
                 Length = length;
                 Width = width;
