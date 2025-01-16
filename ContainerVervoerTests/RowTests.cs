@@ -281,7 +281,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachable_ShouldReturnTrue_WhenBothAreReachable()
+        public void IsPreviousAndNexContainertReachable_ShouldReturnTrue_WhenBothAreReachable()
         {
             // Arrange
             Row row = new Row(3);
@@ -294,7 +294,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachable_ShouldReturnFalse_WhenPreviousIsNotReachable()
+        public void IsPreviousAndNextContainerReachable_ShouldReturnFalse_WhenPreviousIsNotReachable()
         {
             // Arrange
             Row row = new Row(5);
@@ -310,7 +310,7 @@ namespace ContainerVervoerTests
         }
 
         [TestMethod]
-        public void IsPreviousAndNextReachable_ShouldReturnFalse_WhenNextIsNotReachable()
+        public void IsPreviousAndNextContainerReachable_ShouldReturnFalse_WhenNextIsNotReachable()
         {
             // Arrange
             Row row = new Row(5);
