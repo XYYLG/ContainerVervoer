@@ -15,8 +15,8 @@ namespace ContainerVervoer.Classes
             for (int i = 0; i < count; i++)
             {
                 int randomWeight = rand.Next(weigth, Container.MaxWeight);
-                bool isValuable = rand.Next(0, 50) == 1; // Randomly true or false
-                bool needsCooling = rand.Next(0, 40) == 1; // Randomly true or false
+                bool isValuable = rand.Next(0, 40) == 1; // Randomly true or false
+                bool needsCooling = rand.Next(0, 50) == 1; // Randomly true or false
 
                 containers.Add(new Container(randomWeight, isValuable, needsCooling));
             }
