@@ -8,11 +8,11 @@ Ship shipOne = new Ship(length, width);
 
 List<Container> containers = new List<Container>();
 Random random = new Random();
-int randomCount = random.Next(1, 500);
+int randomCount = random.Next(50, 500);
 
 containers.AddRange(ContainerFactory.CreateContainers(randomCount));
 
-foreach (Container container in containers)
+foreach (Container container in containers) 
 {
     shipOne.TryToAddContainer(container);
 }
