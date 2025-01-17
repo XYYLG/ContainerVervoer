@@ -6,21 +6,16 @@ namespace ContainerVervoer.Classes
     {
         private static readonly Random rand = new Random();
 
-        public static List<Container> CreateContainers(int count, bool isValuable, bool needsCooling, int weight = 0)
+        public static List<Container> CreateContainers(int count)
         {
             List<Container> containers = new List<Container>();
 
             for (int i = 0; i < count; i++)
             {
-                int randomWeight = 0;
-                if (weight < Container.EmptyWeight || weight > Container.MaxWeight)
-                {
-                   randomWeight  = rand.Next(Container.EmptyWeight, Container.MaxWeight);
-                }
-                else
-                {
-                    randomWeight = weight;
-                }
+                int randomWeight = rand.Next(Container.EmptyWeight, Container.MaxWeight);
+                bool isValuable = rand.Next(0, 2) == 1; // Randomly true or false
+                bool needsCooling = rand.Next(0, 2) == 1; // Randomly true or false
+
                 containers.Add(new Container(randomWeight, isValuable, needsCooling));
             }
 
