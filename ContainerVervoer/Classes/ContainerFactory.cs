@@ -13,12 +13,22 @@ namespace ContainerVervoer.Classes
             for (int i = 0; i < count; i++)
             {
                 int randomWeight = rand.Next(Container.EmptyWeight, Container.MaxWeight);
-                bool isValuable = rand.Next(0, 40) == 1; // Randomly true or false
-                bool needsCooling = rand.Next(0, 50) == 1; // Randomly true or false
+
+                // Verlaagde kans op normale containers
+                bool isValuable = rand.Next(0, 2) == 1; // 50% kans op waardevol
+                bool needsCooling = rand.Next(0, 2) == 1; // 50% kans op koeling
+
+                // Als de container niet waardevol of gekoeld is, heeft het 25% kans om normaal te zijn
+                if (!isValuable && !needsCooling && rand.Next(0, 4) != 0)
+                {
+                    isValuable = rand.Next(0, 2) == 1; // 50% kans op waardevol als niet gekoeld
+                    needsCooling = rand.Next(0, 2) == 1; // 50% kans op koeling als niet waardevol
+                }
 
                 containers.Add(new Container(randomWeight, isValuable, needsCooling));
             }
 
+            // Sorteer containers
             containers = containers
                 .OrderByDescending(c => c.NeedsCooling)
                 .ThenByDescending(c => c.IsValuable)
