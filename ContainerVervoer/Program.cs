@@ -6,7 +6,7 @@ int width = 5;
 
 Ship shipOne = new Ship(length, width);
 
-List<Container> containers = ContainerFactory.CreateContainers(500); // Willekeurige containers genereren
+List<Container> containers = ContainerFactory.CreateContainers(500); 
 
 // Verdeel containers in categorieën
 List<Container> coolingContainers = containers.Where(c => c.NeedsCooling && !c.IsValuable).ToList();
@@ -21,7 +21,6 @@ orderedContainers.AddRange(valuableCoolingContainers);
 orderedContainers.AddRange(normalContainers);
 orderedContainers.AddRange(valuableContainers);
 
-// Voeg alle containers toe met behulp van TryToAddAllContainers
 bool allContainersAdded = shipOne.TryToAddAllContainers(orderedContainers);
 
 Console.WriteLine($"All containers added: {allContainersAdded}");
