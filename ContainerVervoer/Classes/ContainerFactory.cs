@@ -19,7 +19,13 @@ namespace ContainerVervoer.Classes
                 containers.Add(new Container(randomWeight, isValuable, needsCooling));
             }
 
-            return containers.OrderByDescending(container => container.Weight).ToList();
+            containers = containers
+                .OrderByDescending(c => c.NeedsCooling)
+                .ThenByDescending(c => c.IsValuable)
+                .ThenByDescending(c => c.Weight)
+                .ToList();
+
+            return containers;
         }
     }
 }
