@@ -108,7 +108,6 @@ namespace ContainerVervoer.Classes
                 }
             }
 
-            Console.WriteLine($"Could not place container: Weight={container.Weight}, Valuable={container.IsValuable}, NeedsCooling={container.NeedsCooling}");
             return false;
         }
 
