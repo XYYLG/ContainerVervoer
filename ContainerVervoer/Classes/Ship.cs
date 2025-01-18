@@ -91,7 +91,7 @@ namespace ContainerVervoer.Classes
 
         public bool IsProperlyLoaded()
         {
-            int maxWeight = Length * Width * (Stack.StackCapacity + Container.MaxWeight);
+            int maxWeight = Length * Width * Stack.StackCapacity * Container.MaxWeight;
             int totalWeight = CalculateTotalWeight();
 
             if (totalWeight >= maxWeight / 2)

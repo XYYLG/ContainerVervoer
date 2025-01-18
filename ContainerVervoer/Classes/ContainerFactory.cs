@@ -10,11 +10,9 @@ namespace ContainerVervoer.Classes
         {
             List<Container> containers = new List<Container>();
 
-            int weigth = (Container.EmptyWeight + Container.MaxWeight) / 2;
-
             for (int i = 0; i < count; i++)
             {
-                int randomWeight = rand.Next(weigth, Container.MaxWeight);
+                int randomWeight = rand.Next(Container.EmptyWeight, Container.MaxWeight);
                 bool isValuable = rand.Next(0, 40) == 1; // Randomly true or false
                 bool needsCooling = rand.Next(0, 50) == 1; // Randomly true or false
 

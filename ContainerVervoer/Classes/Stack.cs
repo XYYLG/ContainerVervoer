@@ -17,24 +17,10 @@ namespace ContainerVervoer.Classes
 
         public bool CanSupportWeight(Container container)
         {
-            if (Containers.Count > 0)
-            {
-                int totalWeight = CalculateTotalWeight();
-                if (totalWeight - Containers[0].Weight + container.Weight <= StackCapacity)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (container.Weight <= StackCapacity)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            int totalWeight = CalculateTotalWeight();
+            return totalWeight + container.Weight <= StackCapacity;
         }
+
 
         public int CalculateTotalWeight()
         { 
@@ -51,22 +37,27 @@ namespace ContainerVervoer.Classes
         {
             if (container.NeedsCooling && !IsCooled)
             {
+                Console.WriteLine($"Container needs cooling, but stack is not cooled.");
                 return false;
             }
 
             if (HasValuable)
             {
+                Console.WriteLine($"Stack already has a valuable container.");
                 return false;
             }
 
             if (CanSupportWeight(container))
             {
                 _containers.Add(container);
+                Console.WriteLine($"Container added: Weight={container.Weight}, IsCooled={IsCooled}, HasValuable={HasValuable}");
                 return true;
             }
 
+            Console.WriteLine($"Container cannot be added due to weight.");
             return false;
         }
+
 
         public bool TryToRemoveContainer(Container container)
         {
