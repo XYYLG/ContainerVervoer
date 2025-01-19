@@ -23,7 +23,7 @@ namespace ContainerVervoer.Classes
 
 
         public int CalculateTotalWeight()
-        { 
+        {
             int totalWeight = 0;
             foreach (Container container in Containers)
             {
@@ -48,12 +48,33 @@ namespace ContainerVervoer.Classes
             if (CanSupportWeight(container))
             {
                 _containers.Add(container);
-
                 return true;
+            }
+
+            if (container.IsValuable && container.NeedsCooling)
+            {
+                foreach (Container existingContainer in _containers)
+                {
+                    if (!existingContainer.IsValuable && existingContainer.NeedsCooling)
+                    {
+                        _containers.Remove(existingContainer);
+
+                        if (CanSupportWeight(container))
+                        {
+                            _containers.Add(container);
+                            return true;
+                        }
+                        else
+                        {
+                            _containers.Add(existingContainer);
+                        }
+                    }
+                }
             }
 
             return false;
         }
+
 
 
         public bool TryToRemoveContainer(Container container)

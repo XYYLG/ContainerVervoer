@@ -7,7 +7,7 @@ int width = 5;
 
 Ship shipOne = new Ship(length, width);
 Random random = new Random();
-int randomCount = random.Next(100, 500);
+int randomCount = random.Next(550, 600);
 
 List<Container> containers = ContainerFactory.CreateContainers(randomCount); 
 
