@@ -237,15 +237,21 @@ namespace ContainerVervoerTests
         {
             // Arrange
             Ship ship = new Ship(1, 2);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
-                ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
+                bool added = ship.Rows[0].Stacks[0].TryToAddContainer(new Container(30, false, false));
             }
 
-            // Assert & Act
-            Assert.IsTrue(ship.IsProperlyLoaded());
+            bool addedExtra = ship.Rows[1].Stacks[0].TryToAddContainer(new Container(30, false, false));
 
+            int totalWeight = ship.CalculateTotalWeight();
+            int maxWeight = ship.Length * ship.Width * (Stack.StackCapacity + Container.MaxWeight);
+
+            // Act & Assert
+            Assert.IsTrue(ship.IsProperlyLoaded());
         }
+
+
 
         [TestMethod]
         public void IsProperlyLoaded_ReturnTrue_WhenTotalWeightIsFarAboveLimit()

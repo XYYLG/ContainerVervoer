@@ -51,6 +51,7 @@ namespace ContainerVervoer.Classes
                 return true;
             }
 
+            //Verwijdert cooling container zodat waardevolle gekoelde container erbij kan
             if (container.IsValuable && container.NeedsCooling)
             {
                 foreach (Container existingContainer in _containers)
