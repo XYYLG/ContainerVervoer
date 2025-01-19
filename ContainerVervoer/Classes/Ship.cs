@@ -46,29 +46,6 @@ namespace ContainerVervoer.Classes
             return totalWeight;
         }
 
-        public bool TryToAddAllContainers(List<Container> containers)
-        {
-            List<Container> notPlacedContainers = new List<Container>();
-
-            foreach (Container container in containers)
-            {
-                bool added = TryToAddContainer(container);
-                if (!added)
-                {
-                    notPlacedContainers.Add(container);
-                }
-            }
-
-            // Probeer de niet-geplaatste containers opnieuw toe te voegen
-            foreach (Container container in notPlacedContainers)
-            {
-                TryToAddContainer(container);
-            }
-
-            // Controleer of alle containers zijn geplaatst
-            return notPlacedContainers.Count == 0;
-        }
-
         public bool TryToAddContainer(Container container)
         {
             int leftWeight = CalculateLeftWeight();
@@ -109,6 +86,29 @@ namespace ContainerVervoer.Classes
             }
 
             return false;
+        }
+
+        public bool TryToAddAllContainers(List<Container> containers)
+        {
+            List<Container> notPlacedContainers = new List<Container>();
+
+            foreach (Container container in containers)
+            {
+                bool added = TryToAddContainer(container);
+                if (!added)
+                {
+                    notPlacedContainers.Add(container);
+                }
+            }
+
+            // Probeer de niet-geplaatste containers opnieuw toe te voegen
+            foreach (Container container in notPlacedContainers)
+            {
+                TryToAddContainer(container);
+            }
+
+            // Controleer of alle containers zijn geplaatst
+            return notPlacedContainers.Count == 0;
         }
 
 
