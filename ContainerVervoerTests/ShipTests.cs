@@ -251,8 +251,6 @@ namespace ContainerVervoerTests
             Assert.IsTrue(ship.IsProperlyLoaded());
         }
 
-
-
         [TestMethod]
         public void IsProperlyLoaded_ReturnTrue_WhenTotalWeightIsFarAboveLimit()
         {
