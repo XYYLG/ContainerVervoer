@@ -107,7 +107,6 @@ namespace ContainerVervoer.Classes
                 TryToAddContainer(container);
             }
 
-            // Controleer of alle containers zijn geplaatst
             return notPlacedContainers.Count == 0;
         }
 

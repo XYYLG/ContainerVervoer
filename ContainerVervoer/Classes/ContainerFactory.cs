@@ -43,7 +43,6 @@ namespace ContainerVervoer.Classes
             }
 
             containers = containers
-                
                 .OrderByDescending(c => c.NeedsCooling)
                 .ThenByDescending(c => c.IsValuable)
                 .OrderByDescending(c => c.Weight)
